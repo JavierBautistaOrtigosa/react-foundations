@@ -1,148 +1,205 @@
 import * as React from 'react'
+import ExerciseCard from '../../Components/ExerciseCard'
+import Button from '../../Components/Button'
+import Input from '../../Components/Input'
+import ValueDisplay from '../../Components/ValueDisplay'
 
 export default function Exercises() {
   return (
     <div className='p-6'>
-      {/* Uncomment ONE exercise at a time */}
       <Exercise01 />
       <Exercise02 />
       <Exercise03 />
       <Exercise04 />
       <Exercise05 />
-      {/* <Exercise06 /> */}
+      <Exercise06 />
+      <Exercise07 />
+      <Exercise08 />
+      <Exercise09 />
+      <Exercise10 />
+      <Exercise11 />
     </div>
   )
 }
 
-/* -------------------------------------------------------
-   Exercise 1 — Basic Counter
-------------------------------------------------------- */
+// Exercise 1 — Basic Counter
 
 function Exercise01() {
   const [number, setNumber] = React.useState(0)
 
   return (
-    <div className='p-6 mb-6 border border-gray-300 rounded bg-gray-50'>
-      <h1 className='pb-4 font-semibold text-xl'>Exercise 1 - Basic Counter</h1>
-      <button
-        className='px-4 py-2 mb-2 bg-blue-400 text-white rounded'
-        onClick={() => setNumber(number + 1)}
-      >
-        Increase
-      </button>
+    <ExerciseCard title='Exercise 1 - Basic Counter'>
+      <Button onClick={() => setNumber(number + 1)}>Increase</Button>
       <p className='py-1 font-semibold'>{number}</p>
-    </div>
+    </ExerciseCard>
   )
 }
 
-/* -------------------------------------------------------
-   Exercise 2 — Double Increment
-------------------------------------------------------- */
+// Exercise 2 — Double Increment
 
 function Exercise02() {
   const [number, setNumber] = React.useState(0)
 
   return (
-    <div className='p-6 mb-6 border border-gray-300 rounded bg-gray-50'>
-      <h1 className='pb-4 font-semibold text-xl'>
-        Exercise 2 - Double Increment
-      </h1>
-      <button
-        className='px-4 py-2 mb-2 bg-blue-400 text-white rounded'
-        onClick={() => setNumber(number + 2)}
-      >
-        Add 2
-      </button>
-      <p className='py-1 font-semibold'>{number}</p>
-    </div>
+    <ExerciseCard title='Exercise 2 - Double Increment'>
+      <Button onClick={() => setNumber(number + 2)}>Add 2</Button>
+      <ValueDisplay>{number}</ValueDisplay>
+    </ExerciseCard>
   )
 }
 
-/* -------------------------------------------------------
-   Exercise 3 — Two Independent Counters
-------------------------------------------------------- */
+// Exercise 3 — Two Independent Counters
 
 function Exercise03() {
   const [counter1, setCounter1] = React.useState(0)
   const [counter2, setCounter2] = React.useState(0)
 
   return (
-    <div className='p-6 mb-6 border border-gray-300 rounded bg-gray-50'>
-      <h1 className='pb-4 font-semibold text-xl'>
-        Exercise 3 - Two Independent Counters
-      </h1>
-      <button
-        className='px-4 py-2 mb-2 bg-blue-400 text-white rounded'
-        onClick={() => setCounter1(counter1 + 1)}
-      >
-        Add 1
-      </button>
-      <p className='pb-6 py-1 font-semibold'>{counter1}</p>
-      <button
-        className='px-4 py-2 mb-2 bg-blue-400 text-white rounded'
-        onClick={() => setCounter2(counter2 + 2)}
-      >
-        Add 2
-      </button>
-      <p className='py-1 font-semibold'>{counter2}</p>
-    </div>
+    <ExerciseCard title='Exercise 3 - Two Independent Counters'>
+      <Button onClick={() => setCounter1(counter1 + 1)}>Add 1</Button>
+      <ValueDisplay>{counter1}</ValueDisplay>
+
+      <Button onClick={() => setCounter2(counter2 + 2)}>Add 2</Button>
+      <ValueDisplay>{counter2}</ValueDisplay>
+    </ExerciseCard>
   )
 }
 
-/* -------------------------------------------------------
-   Exercise 4 — Controlled Input
-------------------------------------------------------- */
+// Exercise 4 — Controlled Input
 
 function Exercise04() {
   const [text, setText] = React.useState('')
 
   return (
-    <div className='p-6 mb-6 border border-gray-300 rounded bg-gray-50'>
-      <h1 className='pb-4 font-semibold text-xl'>
-        Exercise 4 - Controlled Input
-      </h1>
+    <ExerciseCard title='Exercise 4 - Controlled Input'>
       <div className='pb-4'>
-        <input
-          type='text'
-          placeholder='Type something...'
+        <Input
           value={text}
-          className='
-        w-full h-10 px-3 text-sm
-        bg-white text-neutral-900
-        border border-neutral-300 rounded-md
-        '
+          placeholder='Type something...'
           onChange={(e) => setText(e.target.value)}
         />
       </div>
-      <p>{text}</p>
-    </div>
+      <ValueDisplay>{text}</ValueDisplay>
+    </ExerciseCard>
   )
 }
 
-/* -------------------------------------------------------
-   Exercise 5 — Show Typed Text
-------------------------------------------------------- */
+// Exercise 5 — Show Typed Text
 
 function Exercise05() {
   const [text, setText] = React.useState('')
+
   return (
-    <div className='p-6 mb-6 border border-gray-300 rounded bg-gray-50'>
-      <h1 className='pb-4 font-semibold text-xl'>
-        Exercise 5 - Show Typed Text
-      </h1>
+    <ExerciseCard title='Exercise 5 - Show Typed Text'>
       <div className='pb-4'>
-        <input
-          placeholder='Type anything...'
+        <Input
           value={text}
-          className='
-        w-full h-10 px-3 text-sm
-        bg-white text-neutral-900
-        border border-neutral-300 rounded-md
-        '
+          placeholder='Type anything...'
           onChange={(e) => setText(e.target.value)}
         />
       </div>
-      <p>{text}</p>
-    </div>
+      <ValueDisplay>{text}</ValueDisplay>
+    </ExerciseCard>
+  )
+}
+
+// Exercise 6 - Boolean Toggle
+
+function Exercise06() {
+  const [isOnline, setIsOnline] = React.useState(false)
+  return (
+    <ExerciseCard title='Exercise 6 - Boolean Toggle'>
+      <Button onClick={() => setIsOnline(!isOnline)}>Toggle</Button>
+      <ValueDisplay>{String(isOnline)}</ValueDisplay>
+      {/* 2nd Option: */}
+      <ValueDisplay>{isOnline ? 'Online' : 'Offline'}</ValueDisplay>
+    </ExerciseCard>
+  )
+}
+
+// Exercise 7 - Show/Hide Text
+
+function Exercise07() {
+  const [textVisible, setTextVisible] = React.useState(true)
+
+  return (
+    <ExerciseCard title='Exercise 7 - Show/Hide Text'>
+      <Button onClick={() => setTextVisible(!textVisible)}>Show/Hide</Button>
+      <ValueDisplay>{textVisible && 'Visible'}</ValueDisplay>
+    </ExerciseCard>
+  )
+}
+
+// Exercise 8 - Reset Button
+
+function Exercise08() {
+  const [number, setNumber] = React.useState(0)
+
+  return (
+    <ExerciseCard title='Exercise 8 - Reset Button'>
+      <Button onClick={() => setNumber(number + 1)}>Add 1</Button>
+      <ValueDisplay>{number}</ValueDisplay>
+      <Button onClick={() => setNumber(0)}>Reset</Button>
+    </ExerciseCard>
+  )
+}
+
+// Exercise 9 - Disable Button When Count > 5
+
+function Exercise09() {
+  const [number, setNumber] = React.useState(0)
+
+  return (
+    <ExerciseCard title='Exercise 9 — Disable Button When Count > 5'>
+      <Button onClick={() => setNumber(number + 1)} disabled={number > 5}>
+        Add 1
+      </Button>
+      <ValueDisplay>{number}</ValueDisplay>
+      <Button onClick={() => setNumber(0)}>Reset</Button>
+    </ExerciseCard>
+  )
+}
+
+// Exercise 10 - Two Inputs, One Output
+
+function Exercise10() {
+  const [name, setName] = React.useState('')
+  const [surname, setSurname] = React.useState('')
+
+  return (
+    <ExerciseCard title='Exercise 10 - Two Inputs, One Output'>
+      <Input
+        placeholder='first name'
+        onChange={(e) => setName(e.target.value)}
+      />
+      <Input
+        placeholder='last name'
+        onChange={(e) => setSurname(e.target.value)}
+      />
+      <ValueDisplay>
+        My full name is: {name} {surname}
+      </ValueDisplay>
+    </ExerciseCard>
+  )
+}
+
+// Exercise 11 - Triple Increment
+
+function Exercise11() {
+  const [number, setNumber] = React.useState(0)
+
+  return (
+    <ExerciseCard title='Exercise 11 - Triple Increment'>
+      <Button
+        onClick={() => {
+          setNumber((prev) => prev + 1)
+          setNumber((prev) => prev + 1)
+          setNumber((prev) => prev + 1)
+        }}
+      >
+        Triple
+      </Button>
+      <ValueDisplay>{number}</ValueDisplay>
+    </ExerciseCard>
   )
 }

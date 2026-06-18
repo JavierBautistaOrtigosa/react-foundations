@@ -140,7 +140,7 @@ Master how React batches updates and why updater functions matter.
 
 ---
 
-## 1. Goal
+## Goal
 
 Understand how to correctly update state when:
 
@@ -150,7 +150,7 @@ Understand how to correctly update state when:
 
 ---
 
-## 2. Core Idea
+## Core Idea
 
 When the next state depends on the previous state, you **must** use the updater function:  
 `setCount(prev => prev + 1)`  
@@ -158,7 +158,7 @@ This guarantees correctness even when React batches updates.
 
 ---
 
-## 3. What You Must Do
+## What You Must Do
 
 Complete the following exercises focusing on updater functions and sequential updates.
 
@@ -166,13 +166,13 @@ Complete the following exercises focusing on updater functions and sequential up
 
 ## 4. Day 2 Exercises
 
-### Exercise 1 — Triple Increment
+### Exercise 11 — Triple Increment
 
 One button click should increase the counter by 3 using **three** updater calls.
 
 ---
 
-### Exercise 2 — Increment and Decrement in One Click
+### Exercise 12 — Increment and Decrement in One Click
 
 One button should:
 
@@ -183,21 +183,21 @@ One button should:
 
 ---
 
-### Exercise 3 — Two Counters Updated Together
+### Exercise 13 — Two Counters Updated Together
 
 Two counters in the same component.  
 One button updates both using updater functions.
 
 ---
 
-### Exercise 4 — Click History Counter
+### Exercise 14 — Click History Counter
 
 Every click pushes a new number into an array (1, 2, 3...).  
 Use updater functions to append correctly.
 
 ---
 
-### Exercise 5 — Toggle with Updater
+### Exercise 15 — Toggle with Updater
 
 Rewrite a boolean toggle using the updater form:  
 `setOn(prev => !prev)`
@@ -253,32 +253,32 @@ Complete exercises focused on immutable updates.
 
 ## 4. Day 3 Exercises
 
-### Exercise 1 — Add Item to Array
+### Exercise 16 — Add Item to Array
 
 Start with an empty array.  
 Add items using the spread operator.
 
 ---
 
-### Exercise 2 — Remove Item from Array
+### Exercise 17 — Remove Item from Array
 
 Remove an item using `.filter()`.
 
 ---
 
-### Exercise 3 — Update an Item in Array
+### Exercise 18 — Update an Item in Array
 
 Given an array of objects, update one item immutably.
 
 ---
 
-### Exercise 4 — Toggle a Boolean Inside an Object
+### Exercise 19 — Toggle a Boolean Inside an Object
 
 Given an object `{ on: false }`, toggle it immutably.
 
 ---
 
-### Exercise 5 — Update Nested Object
+### Exercise 20 — Update Nested Object
 
 Update a nested field without mutating the original object.
 
@@ -331,34 +331,34 @@ Complete exercises that force you to decide what belongs in state.
 
 ## 4. Day 4 Exercises
 
-### Exercise 1 — Full Name Derived from First + Last
+### Exercise 21 — Full Name Derived from First + Last
 
 Store first and last name in state.  
 Compute full name on render.
 
 ---
 
-### Exercise 2 — Disable Button Based on Input Length
+### Exercise 22 — Disable Button Based on Input Length
 
 Do not store “isDisabled”.  
 Compute it from the input value.
 
 ---
 
-### Exercise 3 — Filtered List Derived from Items + Query
+### Exercise 23 — Filtered List Derived from Items + Query
 
 Store items and query.  
 Compute filtered list.
 
 ---
 
-### Exercise 4 — Two Related States (Split or Combine?)
+### Exercise 24 — Two Related States (Split or Combine?)
 
 Decide whether to store them separately or as one object.
 
 ---
 
-### Exercise 5 — Form Validation Derived from Fields
+### Exercise 25 — Form Validation Derived from Fields
 
 Compute validation state instead of storing it.
 
@@ -413,13 +413,13 @@ Build small components that simulate real UI patterns.
 
 ## 4. Day 5 Exercises
 
-### Exercise 1 — Todo List (Add, Remove, Toggle)
+### Exercise 26 — Todo List (Add, Remove, Toggle)
 
 Use arrays, objects, and updater functions.
 
 ---
 
-### Exercise 2 — Form with Validation
+### Exercise 27 — Form with Validation
 
 Store fields.  
 Derive validation.  
@@ -427,19 +427,19 @@ Submit only when valid.
 
 ---
 
-### Exercise 3 — Shopping Cart Quantity Manager
+### Exercise 28 — Shopping Cart Quantity Manager
 
 Increment, decrement, remove items.
 
 ---
 
-### Exercise 4 — Light/Dark Theme Toggle
+### Exercise 29 — Light/Dark Theme Toggle
 
 Boolean toggle + conditional rendering.
 
 ---
 
-### Exercise 5 — Click History with Derived Stats
+### Exercise 30 — Click History with Derived Stats
 
 Store clicks.  
 Derive:
@@ -472,3 +472,7 @@ Real components are just combinations of:
 Master these patterns and you can build anything.
 
 ============================================================
+
+```
+
+```
