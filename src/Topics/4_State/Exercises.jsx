@@ -20,9 +20,9 @@ export default function Exercises() {
       {/* <Exercise11 /> */}
       {/* <Exercise12 /> */}
       {/* <Exercise13 /> */}
-      <Exercise14 />
+      {/* <Exercise14 /> */}
       {/* <Exercise15 /> */}
-      {/* <Exercise16 />  */}
+      <Exercise16 />
       {/* <Exercise17 /> */}
       {/* <Exercise18 /> */}
     </div>
@@ -265,33 +265,6 @@ function Exercise13() {
 
 // Exercise 14 — Click History Counter
 
-// Notes:
-
-// You must use the updater function:
-
-// ----- setCounter(prev => [...prev, prev.length + 1])
-
-// Why?
-
-// ----- prev is always the latest array.
-// ----- prev.length + 1 gives you the next number.
-// ----- [...prev, newValue] appends immutably.
-// ----- React can detect the change because you created a new array.
-// ----- This is the exact pattern the exercise is teaching..
-
-// function Exercise14() {
-//   const [counter, setCounter] = React.useState([])
-
-//   return (
-//     <ExerciseCard title='Exercise 14 — Click History Counter'>
-//       <Button onClick={() => setCounter((prev) => [...prev, prev.length + 1])}>
-//         Add Click
-//       </Button>
-//       <ValueDisplay>{counter.join(', ')}</ValueDisplay>
-//     </ExerciseCard>
-//   )
-// }
-
 function Exercise14() {
   const [counter, setCounter] = React.useState([])
 
@@ -311,28 +284,58 @@ function Exercise14() {
 
 // Exercise 15 — Toggle with Updater
 
+// function Exercise15() {
+//   const [on, setOn] = React.useState(false)
+
+//   return (
+//     <ExerciseCard title='Exercise 15 — Toggle with Updater'>
+//       <Button onClick={() => setOn((prev) => !prev)}>Toggle</Button>
+//       <ValueDisplay>{on ? 'ON' : 'OFF'}</ValueDisplay>
+//     </ExerciseCard>
+//   )
+// }
+
 function Exercise15() {
   const [on, setOn] = React.useState(false)
-
   return (
-    <ExerciseCard title='Exercise 15 — Toggle with Updater'>
-      <Button onClick={() => setOn((prev) => !prev)}>Toggle</Button>
+    <ExerciseCard>
+      <Button
+        onClick={() => {
+          setOn((prev) => !prev)
+        }}
+      >
+        Toggle
+      </Button>
       <ValueDisplay>{on ? 'ON' : 'OFF'}</ValueDisplay>
     </ExerciseCard>
   )
 }
 
-// Exercise 16 — Add Item to Array
+// Exercise 16 — Add Item (string) to Array
+
+// function Exercise16() {
+//   const [counter, setCounter] = React.useState([])
+
+//   return (
+//     <ExerciseCard title='Exercise 16 — Add Item to Array'>
+//       <Button onClick={() => setCounter((prev) => [...prev, prev.length + 1])}>
+//         Add
+//       </Button>
+//       <ValueDisplay>{counter.join(', ')}</ValueDisplay>
+//     </ExerciseCard>
+//   )
+// }
 
 function Exercise16() {
-  const [counter, setCounter] = React.useState([])
+  const [word, setWord] = React.useState([])
+  const [text, setText] = React.useState('')
 
   return (
-    <ExerciseCard title='Exercise 16 — Add Item to Array'>
-      <Button onClick={() => setCounter((prev) => [...prev, prev.length + 1])}>
-        Add
-      </Button>
-      <ValueDisplay>{counter.join(', ')}</ValueDisplay>
+    <ExerciseCard>
+      <Input onChange={(e) => setText(e.target.value)} />
+      <div className='mb-4'></div>
+      <Button onClick={() => setWord((prev) => [...prev, text])}>Add</Button>
+      <ValueDisplay>{word.join(', ')}</ValueDisplay>
     </ExerciseCard>
   )
 }

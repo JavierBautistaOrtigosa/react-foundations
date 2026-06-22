@@ -4,7 +4,7 @@ Notes, advise and formulas to remember and refresh React concepts.
 
 ============================================================
 
-#### Exercise 11 - Triple Increment
+### Exercise 11 - Triple Increment
 
 **1. The Button formula**
 
@@ -76,7 +76,7 @@ setNumber((prev) => prev + 1) // Third call: prev = 2 → returns 3
 - number = stale snapshot
 - React calls each updater in order, giving you the fresh value each time
 
-#### Exercise 14 - Click History Counter
+### Exercise 14 - Click History Counter
 
 **1. The Button formula**
 
@@ -107,7 +107,7 @@ setArray((prev) => [...prev, newItem])
 - Appending `newItem` at the end is safe and predictable.
 - React re-renders because the array reference changes.
 
-**3. The full formula for Eercise 14**
+**3. The full formula for Exercise 14**
 
 ```jsx
 <Button
@@ -149,3 +149,55 @@ setArray((prev) => [...prev, newItem])
 - React cannot render arrays directly as text.
 - `join()` turns the array into a human-friendly string.
 - It keeps the click history clean and readable.
+
+### Exercise 15 - Toggle with updater
+
+**1. The Button formula**
+
+A button that triggers a state update must pass an **arrow function** to `onClick`.
+
+```jsx
+<Button onClick={() => {}}></Button>
+```
+
+**Why:**
+
+- React expects a function, not the result of a function.
+
+**2. The setState formula for booleans**
+
+- When toggling a boolean, and the new value depends on the previous value, you must use the **updater function**.
+
+```jsx
+setOn((prev) => !prev)
+```
+
+**Why:**
+
+- `prev` always contains the latest state value.
+- React may batch updates, so reading `on` directly can give you a stale value.
+- `!prev` flips the boolean safely and predictably.
+
+**3. The full formula**
+
+```jsx
+<Button
+  onClick={() => {
+    setOn((prev) => !prev)
+  }}
+>
+  Toggle
+</Button>
+```
+
+**4. The state formula:**
+
+```jsx
+const [on, setOn] = React.useState(false)
+```
+
+**What this does:**
+
+- `prev` is the current boolean (`true` or `false`)
+- `!prev` flips it.
+- React receives a new value and re-renders.
