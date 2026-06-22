@@ -7,17 +7,24 @@ import ValueDisplay from '../../Components/ValueDisplay'
 export default function Exercises() {
   return (
     <div className='p-6'>
-      <Exercise01 />
-      <Exercise02 />
-      <Exercise03 />
-      <Exercise04 />
-      <Exercise05 />
-      <Exercise06 />
-      <Exercise07 />
-      <Exercise08 />
-      <Exercise09 />
-      <Exercise10 />
-      <Exercise11 />
+      {/* <Exercise01 /> */}
+      {/* <Exercise02 /> */}
+      {/* <Exercise03 /> */}
+      {/* <Exercise04 /> */}
+      {/* <Exercise05 /> */}
+      {/* <Exercise06 /> */}
+      {/* <Exercise07 /> */}
+      {/* <Exercise08 /> */}
+      {/* <Exercise09 /> */}
+      {/* <Exercise10 /> */}
+      {/* <Exercise11 /> */}
+      {/* <Exercise12 /> */}
+      {/* <Exercise13 /> */}
+      <Exercise14 />
+      {/* <Exercise15 /> */}
+      {/* <Exercise16 />  */}
+      {/* <Exercise17 /> */}
+      {/* <Exercise18 /> */}
     </div>
   )
 }
@@ -203,3 +210,149 @@ function Exercise11() {
     </ExerciseCard>
   )
 }
+
+// Exercise 12 — Increment and Decrement in One Click
+
+function Exercise12() {
+  const [counter, setCounter] = React.useState(0)
+
+  return (
+    <ExerciseCard title='Exercise 12 — Increment and Decrement in One Click'>
+      <Button
+        onClick={() => {
+          setCounter((prev) => prev + 1)
+          setCounter((prev) => prev - 1)
+          setCounter((prev) => prev + 1)
+        }}
+      >
+        Test
+      </Button>
+      <ValueDisplay>{counter}</ValueDisplay>
+    </ExerciseCard>
+  )
+}
+
+// Exercise 13 — Two Counters Updated Together
+
+// Notes:
+
+// You don’t need updater functions here because:
+
+// ----- counter1’s update does not depend on counter2
+// ----- counter2’s update does not depend on counter1
+// ----- neither update depends on the previous value inside the same event
+
+function Exercise13() {
+  const [counter1, setCounter1] = React.useState(0)
+  const [counter2, setCounter2] = React.useState(0)
+
+  return (
+    <ExerciseCard title='Exercise 13 — Two Counters Updated Together'>
+      <Button
+        onClick={() => {
+          setCounter1(counter1 + 1)
+          setCounter2(counter2 + 2)
+        }}
+      >
+        Update Both
+      </Button>
+
+      <ValueDisplay>Counter 1: {counter1} </ValueDisplay>
+      <ValueDisplay>Counter 2: {counter2} </ValueDisplay>
+    </ExerciseCard>
+  )
+}
+
+// Exercise 14 — Click History Counter
+
+// Notes:
+
+// You must use the updater function:
+
+// ----- setCounter(prev => [...prev, prev.length + 1])
+
+// Why?
+
+// ----- prev is always the latest array.
+// ----- prev.length + 1 gives you the next number.
+// ----- [...prev, newValue] appends immutably.
+// ----- React can detect the change because you created a new array.
+// ----- This is the exact pattern the exercise is teaching..
+
+// function Exercise14() {
+//   const [counter, setCounter] = React.useState([])
+
+//   return (
+//     <ExerciseCard title='Exercise 14 — Click History Counter'>
+//       <Button onClick={() => setCounter((prev) => [...prev, prev.length + 1])}>
+//         Add Click
+//       </Button>
+//       <ValueDisplay>{counter.join(', ')}</ValueDisplay>
+//     </ExerciseCard>
+//   )
+// }
+
+function Exercise14() {
+  const [counter, setCounter] = React.useState([])
+
+  return (
+    <ExerciseCard>
+      <Button
+        onClick={() => {
+          setCounter((prev) => [...prev, prev.length + 1])
+        }}
+      >
+        Add
+      </Button>
+      <ValueDisplay>{counter.join(', ')}</ValueDisplay>
+    </ExerciseCard>
+  )
+}
+
+// Exercise 15 — Toggle with Updater
+
+function Exercise15() {
+  const [on, setOn] = React.useState(false)
+
+  return (
+    <ExerciseCard title='Exercise 15 — Toggle with Updater'>
+      <Button onClick={() => setOn((prev) => !prev)}>Toggle</Button>
+      <ValueDisplay>{on ? 'ON' : 'OFF'}</ValueDisplay>
+    </ExerciseCard>
+  )
+}
+
+// Exercise 16 — Add Item to Array
+
+function Exercise16() {
+  const [counter, setCounter] = React.useState([])
+
+  return (
+    <ExerciseCard title='Exercise 16 — Add Item to Array'>
+      <Button onClick={() => setCounter((prev) => [...prev, prev.length + 1])}>
+        Add
+      </Button>
+      <ValueDisplay>{counter.join(', ')}</ValueDisplay>
+    </ExerciseCard>
+  )
+}
+
+// Exercise 17 — Remove Item from Array
+
+function Exercise17() {
+  const [counter, setCounter] = React.useState([])
+
+  return (
+    <ExerciseCard title='Exercise 17 — Remove Item from Array'>
+      <Button onClick={() => setCounter((prev) => [...prev, prev.length + 1])}>
+        Test
+      </Button>
+      <Button onClick={() => setCounter((prev) => prev.slice(0, -1))}>
+        Remove Last
+      </Button>
+      <ValueDisplay>{counter.join(', ')}</ValueDisplay>
+    </ExerciseCard>
+  )
+}
+
+// Exercise 18 — Update an Item in Array

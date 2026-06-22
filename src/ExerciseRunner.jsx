@@ -1,10 +1,10 @@
-import { Exercises, Exercises_docs } from './Topics/4_State'
+import { Exercises, Exercises_Docs } from './Topics/4_State'
 
 export default function ExerciseRunner() {
   return (
     <div>
       <Exercises />
-      {/* <Exercises_docs /> */}
+      {/* <Exercises_Docs /> */}
     </div>
   )
 }
