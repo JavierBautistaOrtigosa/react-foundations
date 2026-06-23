@@ -22,9 +22,11 @@ export default function Exercises() {
       {/* <Exercise13 /> */}
       {/* <Exercise14 /> */}
       {/* <Exercise15 /> */}
-      <Exercise16 />
+      {/* <Exercise16 /> */}
       {/* <Exercise17 /> */}
       {/* <Exercise18 /> */}
+      <Exercise19 />
+      <Exercise20 />
     </div>
   )
 }
@@ -313,49 +315,177 @@ function Exercise15() {
 
 // Exercise 16 — Add Item (string) to Array
 
-// function Exercise16() {
-//   const [counter, setCounter] = React.useState([])
-
-//   return (
-//     <ExerciseCard title='Exercise 16 — Add Item to Array'>
-//       <Button onClick={() => setCounter((prev) => [...prev, prev.length + 1])}>
-//         Add
-//       </Button>
-//       <ValueDisplay>{counter.join(', ')}</ValueDisplay>
-//     </ExerciseCard>
-//   )
-// }
-
 function Exercise16() {
-  const [word, setWord] = React.useState([])
-  const [text, setText] = React.useState('')
+  const [input, setInput] = React.useState('')
+  const [array, setArray] = React.useState([])
 
   return (
     <ExerciseCard>
-      <Input onChange={(e) => setText(e.target.value)} />
-      <div className='mb-4'></div>
-      <Button onClick={() => setWord((prev) => [...prev, text])}>Add</Button>
-      <ValueDisplay>{word.join(', ')}</ValueDisplay>
+      <Input onChange={(e) => setInput(e.target.value)} />
+
+      <Button
+        onClick={() => {
+          setArray((prev) => [...prev, input])
+        }}
+      >
+        Add
+      </Button>
+      <ValueDisplay>{array.join(', ')}</ValueDisplay>
     </ExerciseCard>
   )
 }
-
-// Exercise 17 — Remove Item from Array
+// Exercise 17 — Remove Item from Array with slice()
 
 function Exercise17() {
-  const [counter, setCounter] = React.useState([])
+  const [input, setInput] = React.useState(0)
+  const [array, setArray] = React.useState([])
 
   return (
-    <ExerciseCard title='Exercise 17 — Remove Item from Array'>
-      <Button onClick={() => setCounter((prev) => [...prev, prev.length + 1])}>
-        Test
+    <ExerciseCard>
+      <Input onChange={(e) => setInput(e.target.value)} />
+      <div className='mb-4'></div>
+      <Button
+        onClick={() => {
+          setArray((prev) => [...prev, input])
+        }}
+      >
+        Add
       </Button>
-      <Button onClick={() => setCounter((prev) => prev.slice(0, -1))}>
-        Remove Last
+      <ValueDisplay>{array.join(', ')}</ValueDisplay>
+      <div className='mb-2'></div>
+      <Button
+        onClick={() => {
+          setArray((prev) => prev.slice(0, -1))
+        }}
+      >
+        Delete Last
       </Button>
-      <ValueDisplay>{counter.join(', ')}</ValueDisplay>
     </ExerciseCard>
   )
 }
 
+/*
+Add this to your notes:
+
+Why .slice(0, -1) works
+
+- slice() returns a new array (immutable)
+- 0 = start at the beginning
+- -1 = stop one before the last item
+
+Result: last item removed
+
+Example:
+
+Code:
+
+prev = [1, 2, 3, 4]
+prev.slice(0, -1) → [1, 2, 3]
+*/
+
 // Exercise 18 — Update an Item in Array
+
+function Exercise18() {
+  const [items, setItems] = React.useState([
+    { id: 1, value: 'A' },
+    { id: 2, value: 'B' },
+    { id: 3, value: 'C' }
+  ])
+
+  return (
+    <ExerciseCard>
+      <Button
+        onClick={() => {
+          setItems((prev) =>
+            prev.map((item) =>
+              item.id === 2 ? { ...item, value: 'Updated!' } : item
+            )
+          )
+        }}
+      >
+        Update Item 2
+      </Button>
+      <ValueDisplay>{JSON.stringify(items)}</ValueDisplay>
+    </ExerciseCard>
+  )
+}
+
+/*
+Add this to your notes:
+
+Updating an item in an array of objects always follows this rule:
+
+- map over the array →
+- find the matching object →
+- return a new updated copy →
+- return all other objects unchanged
+
+That’s exactly what your line does.
+*/
+
+// Exercise 19 — Toggle a Boolean Inside an Object
+
+function Exercise19() {
+  const [settings, setSettings] = React.useState({
+    isOnline: false
+  })
+
+  return (
+    <ExerciseCard>
+      <Button
+        onClick={() => {
+          setSettings((prev) => ({
+            ...prev,
+            isOnline: !prev.isOnline
+          }))
+        }}
+      >
+        Toggle
+      </Button>
+
+      <ValueDisplay>{settings.isOnline ? 'ON' : 'OFF'}</ValueDisplay>
+    </ExerciseCard>
+  )
+}
+
+// Exercise 20 — Update Nested Object
+
+function Exercise20() {
+  const [state, setState] = React.useState({
+    user: {
+      name: 'Javier',
+      age: 30
+    }
+  })
+
+  return (
+    <ExerciseCard>
+      <Button
+        onClick={() => {
+          setState((prev) => ({
+            ...prev,
+            user: {
+              ...prev.user,
+              age: prev.user.age + 1
+            }
+          }))
+        }}
+      >
+        Increment Age
+      </Button>
+
+      <ValueDisplay>{state.user.age}</ValueDisplay>
+    </ExerciseCard>
+  )
+}
+
+// Exercise 21 — Full Name Derived from First + Last
+// Exercise 22 — Disable Button Based on Input Length
+// Exercise 23 — Filtered List Derived from Items + Query
+// Exercise 24 — Two Related States (Split or Combine?)
+// Exercise 25 — Form Validation Derived from Fields
+// Exercise 26 — Todo List (Add, Remove, Toggle)
+// Exercise 27 — Form with Validation
+// Exercise 28 — Shopping Cart Quantity Manager
+// Exercise 29 — Light/Dark Theme Toggle
+// Exercise 30 — Click History with Derived Stats

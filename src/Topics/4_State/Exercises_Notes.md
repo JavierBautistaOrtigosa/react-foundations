@@ -1,9 +1,5 @@
 # React useState Mastery - Notes
 
-Notes, advise and formulas to remember and refresh React concepts.
-
-============================================================
-
 ### Exercise 11 - Triple Increment
 
 **1. The Button formula**
@@ -150,7 +146,7 @@ setArray((prev) => [...prev, newItem])
 - `join()` turns the array into a human-friendly string.
 - It keeps the click history clean and readable.
 
-### Exercise 15 - Toggle with updater
+### Exercise 15 - Toggle with Updater
 
 **1. The Button formula**
 
@@ -201,3 +197,244 @@ const [on, setOn] = React.useState(false)
 - `prev` is the current boolean (`true` or `false`)
 - `!prev` flips it.
 - React receives a new value and re-renders.
+
+### Exercise 16 - Add String to Array (Input + Updater)
+
+**1. The Input formula**
+
+An input that updates state must pass an **arrow function** to `onChange` and read the value from the event.
+
+`<Input onChange={(e) => setInput(e.target.value)} />`
+
+**Why:**
+
+- React expects a function, not a value.
+- `e.target.value` gives you the latest text typed by the user.
+- `input` becomes the controlled input value.
+
+**2. The setState formula for adding items to an array**
+
+When updating an array, you must create a **new array**, never mutate the old one.
+
+`setArray((prev) => [...prev, input])`
+
+**Why:**
+
+- React state must remain immutable.
+- `[...prev]` copies the existing array.
+- `input` is appended at the end.
+- React re-renders because the array reference changes.
+
+**3. The full formula**
+
+```jsx
+<Button
+  onClick={() => {
+    setArray((prev) => [...prev, input])
+  }}
+>
+  Add
+</Button>
+```
+
+**The state formula**
+
+```jsx
+const [input, setInput] = React.useState('')
+const [array, setArray] = React.useState([])
+```
+
+**What this does:**
+
+- `input` holds whatever the user typed.
+- `prev` is the current array.
+- `[...prev, input]` creates a **new array** with the new string appended.
+- React receives a new array and re-renders.
+
+**5. we use `prev` instead of array**
+
+Inside an event, `array` is a **stale snapshot**, it does not update until the event finishes.
+
+Using the updater function:
+
+```jsx
+setArray((prev) => [...prev, input])
+```
+
+**Why:**
+
+- `prev` = fresh, updated array
+- The new string is always appended correctly.
+- No stale state bugs.
+
+**Displaying the string list**
+
+`<ValueDisplay>{array.join(', ')}</ValueDisplay>
+`
+
+**Why:**
+
+- join(', ') converts the array into a readable string.
+- Each added word appears in order: "hello, world, react, ...".
+
+**Extra notes**
+
+```jsx
+// [...prev, input] — the new array
+// This creates a brand‑new array:
+
+// ...prev → copy all existing items
+
+// input → append the new string at the end
+
+// So if:
+
+// Code example:
+
+// prev = ["hello", "world"]
+// input = "react"
+
+// Then:
+
+// Code example:
+
+// [...prev, input] = ["hello", "world", "react"]
+```
+
+### Exercise 19 - Toogle a Boolean Inside an Object
+
+#### How to "setup" the state "container".
+
+```jsx
+const [settings, setSettings] = React.useState({
+  isOnline: false
+})
+```
+
+1. `const [settings, setSettings] = ...`
+
+This is React giving a state variable and a function to update it.
+
+- `settings` is the current value.
+- `setSettings` is how to change it.
+
+Is like saying: "Here's a box called `settings` use `setSettings` to change it.
+
+2. `React.useState(...)`
+
+This is us telling React: "I want to store some data, and here's the starting value."
+React will remember this value between renders.
+
+3. The initial object
+
+```jsx
+{
+  isOnline: false
+}
+```
+
+This is the initial shape of your state (the default state or starting point).
+Is like saying: "My settings object starts with one property: `isOnline`, and right now it's `false`".
+
+#### How to "setup" the button.
+
+1. The `onClick` arrow function.
+
+`onClick={() => {}}`
+
+This is React saying: "When the user clicks this button, run the code inside here".
+This is just the trigger.
+
+2. Calling `setSettings`.
+
+`setSettings(() => ({}) )`
+`setSettings((prev) => ({...prev, })`
+`setSettings((prev) => ({ ...prev, isOnline: !prev.false })`
+
+- !IMPORTANT — When returning an object from an arrow function, you must wrap the object in parentheses.
+
+Without parentheses:
+
+`(prev) => { ...prev }`
+
+JavaScript thinks the {} is a function body, not an object literal.
+Since there is no return statement, the function returns undefined.
+
+With parentheses:
+
+`(prev) => ({ ...prev })`
+
+The parentheses tell JavaScript:
+
+“This is an object literal — return it.”
+
+This is why we write:
+
+```jsx
+setSettings((prev) => ({
+  ...prev,
+  isOnline: !prev.isOnline
+}))
+```
+
+This is us telling React: "I want to update the setting object, but I need the latest version of it."
+"React gives you the latest version as `prev`"
+
+3. Copying the old object.
+
+`...prev, `
+
+This is the spread operator.
+Is like saying: "Copy everything from the old settings object into a new one."
+
+In this case `prev` is:
+
+`{ isOnline: false }`
+
+Therefore `{...prev }` becomes:
+
+`{ isOnline: false }`
+
+Same content, new object. **!IMPORTANT**
+React needs this new object so it can detect the change.
+
+4. Overwriting the field you want to change.
+
+`isOnline: !prev.isOnline`
+
+This is the actual update.
+
+Is like saying: "Take the old value of `isOnline`, flip it, and put that into the new object."
+
+So basically:
+
+If it was `false`, it becomes `true`.
+If it was `true`, it becomes `false`.
+
+This is the toggle.
+
+5. In plain English:
+
+In plain English:
+
+- “Give me the latest settings object.
+- Make a new copy of it.
+- Flip the isOnline value.
+- Return the new object so React can re-render.”
+
+```jsx
+// Full Example:
+
+// The "container":
+
+const [setting, setSettings] = React.useState({
+  isOnline: false
+})
+
+<Button
+onClick={() => {
+      setSettings((prev) => ({...prev, isOnline: !prev.isOnline }))
+}}
+>
+</Button>
+```
