@@ -25,7 +25,7 @@ export default function Exercises() {
       {/* <Exercise16 /> */}
       {/* <Exercise17 /> */}
       {/* <Exercise18 /> */}
-      <Exercise19 />
+      {/* <Exercise19 /> */}
       <Exercise20 />
     </div>
   )
@@ -425,59 +425,58 @@ That’s exactly what your line does.
 
 // Exercise 19 — Toggle a Boolean Inside an Object
 
-function Exercise19() {
-  const [settings, setSettings] = React.useState({
-    isOnline: false
-  })
+// function Exercise19() {
+//   const [settings, setSettings] = React.useState({
+//     isOnline: false
+//   })
 
-  return (
-    <ExerciseCard>
-      <Button
-        onClick={() => {
-          setSettings((prev) => ({
-            ...prev,
-            isOnline: !prev.isOnline
-          }))
-        }}
-      >
-        Toggle
-      </Button>
+//   return (
+//     <ExerciseCard>
+//       <Button
+//         onClick={() => {
+//           setSettings((prev) => ({
+//             ...prev,
+//             isOnline: !prev.isOnline
+//           }))
+//         }}
+//       >
+//         Toggle
+//       </Button>
 
-      <ValueDisplay>{settings.isOnline ? 'ON' : 'OFF'}</ValueDisplay>
-    </ExerciseCard>
-  )
-}
+//       <ValueDisplay>{settings.isOnline ? 'ON' : 'OFF'}</ValueDisplay>
+//     </ExerciseCard>
+//   )
+// }
 
 // Exercise 20 — Update Nested Object
 
-function Exercise20() {
-  const [state, setState] = React.useState({
-    user: {
-      name: 'Javier',
-      age: 30
-    }
-  })
+// function Exercise20() {
+//   const [state, setState] = React.useState({
+//     user: {
+//       name: 'Javier',
+//       age: 39
+//     }
+//   })
 
-  return (
-    <ExerciseCard>
-      <Button
-        onClick={() => {
-          setState((prev) => ({
-            ...prev,
-            user: {
-              ...prev.user,
-              age: prev.user.age + 1
-            }
-          }))
-        }}
-      >
-        Increment Age
-      </Button>
-
-      <ValueDisplay>{state.user.age}</ValueDisplay>
-    </ExerciseCard>
-  )
-}
+//   return (
+//     <ExerciseCard>
+//       <Button
+//         onClick={() => {
+//           setState((prev) => ({
+//             ...prev,
+//             user: {
+//               ...prev.user,
+//               age: prev.user.age + 1
+//             }
+//           }))
+//         }}
+//       >
+//         Increment Age
+//       </Button>
+//       <ValueDisplay>{state.user.age}</ValueDisplay>
+//     </ExerciseCard>
+//   )
+// }
 
 // Exercise 21 — Full Name Derived from First + Last
 // Exercise 22 — Disable Button Based on Input Length
@@ -489,3 +488,341 @@ function Exercise20() {
 // Exercise 28 — Shopping Cart Quantity Manager
 // Exercise 29 — Light/Dark Theme Toggle
 // Exercise 30 — Click History with Derived Stats
+
+// ===============================================
+// GRINDING SECTION
+// ===============================================
+
+// SAMPLE: Exercise 20
+
+// Updating Nested Objects:
+// Repeat the core pattern until it becomes muscle memory
+
+/*
+setState((prev) => ({               // prev = the most up‑to‑date state object
+      ...prev,                      // Copy the OUTER state object
+      user: {                       // Create a NEW user object
+      ...prev.user,                 // Copy the INNER user object
+      age: prev.user.age + 1        // Update the age field
+      }      
+      }))
+*/
+
+/*
+setState((prev) => ({
+      ...prev,
+      user: {
+      ...prev.user,
+      age: prev.user.age + 1
+      }   
+      }))
+*/
+
+/*
+setState((prev) => ({
+      ...prev,
+      user: {
+      ...prev,
+      age: prev.user.age + 1
+      }
+      }))
+*/
+
+/*
+setState((prev) => ({
+      ...prev,
+      user: {
+      ...prev,
+      age: prev.user.age + 1
+      }
+      }))
+*/
+
+/*
+setState((prev) => ({
+      ...prev,
+      user: {
+      ...prev,
+      age: prev.user.age + 1
+      }
+      }))
+*/
+
+/*
+setState((prev) => ({
+      ...prev,
+      user: {
+      ...prev,
+      age: prev.user.age + 1
+      }
+      }))
+*/
+
+/*
+setState((prev) => {
+      ...prev,
+      user: {
+      ...prev,
+      age: prev.user.age + 1
+      }
+      })
+*/
+
+/*
+setState((prev) => ({
+      ...prev,
+      user: {
+      ...prev,
+      age: prev.user.age + 1
+      }
+      }))
+*/
+
+/*
+setState((prev) => ({
+      ...prev,
+      user: {
+      ...prev,
+      age: prev.user.age + 1
+      }
+      }))
+*/
+
+/*
+setState((prev) => ({
+      ...prev,
+      user: {
+      ...prev,
+      age: prev.user.age + 1
+      }
+      }))
+*/
+
+/*
+setState((prev) => ({
+      ...prev,
+      user: {
+      ...prev,
+      age: prev.user.age + 1
+      }
+      }))
+*/
+
+// 1. Update a nested profile field
+
+/*
+const [state, setState] = React.useState({
+      user: {
+            profile: {
+                  age: 39
+            }
+      }
+})
+
+setState((prev) => ({
+      ...prev,                            // Copy OUTER state
+      user: {
+      ...prev.user,                       // Copy user object
+      profile: {
+      ...prev.user.profile,               // Copy profile object
+      age: prev.user.profile.age + 1
+      }
+      }
+      }))
+*/
+
+// 2. Change the user's name
+
+/*
+const [state, setState] = React.useState({
+      user: {
+            profile: {
+                  name: 'Javier'
+            }
+      }
+})
+
+setState((prev) => ({
+      ...prev,
+      user: {
+      ...prev.user,
+      profile: {
+      ...prev.user.profile,
+      name: prev.user.profile.name = 'Alex' // WRONG
+      name: 'Alex'
+      }
+      }
+}))
+
+Why is wrong:
+- Because we want to update the name field
+- React cannot detect mutation.
+- !IMPORTANT = React re-renders ONLY when the reference changes
+*/
+
+// 3. Toggle a nested boolean inside settings
+
+/*
+const [state, setState] = React.useState({
+      settings: {
+            notifications: {
+                  email: false
+            }
+      }
+})
+
+setState(prev => ({
+  ...prev,                                            // Copy outer state
+  settings: {
+    ...prev.settings,                                 // Copy settings object
+    notifications: {
+      ...prev.settings.notifications,                 // Copy notifications object
+      email: !prev.settings.notifications.email       // Toggle
+    }
+  }
+}))
+*/
+
+// 4. Add a new filed inside a nested object
+
+/*
+const [state, setState] = React.useState({
+      user: {
+            profile: {
+                  name: 'Javier'
+            }
+      }
+})
+
+// Add country: 'Australia' inside profile
+
+setState((prev) => ({
+      ...prev,
+      user: {
+      ...prev.user,
+      profile: {
+      profile: prev.user.profile + country: 'Australia'     // WRONG
+      ...prev.user.profile,                                 // Copy profile object
+      country: 'Australia'                                  // Add new field
+      }
+      }
+      }))
+*/
+
+// 5. Update two nested fields at once
+
+/*
+const [state, setState] = React.useState({
+      user: {
+            profile: {
+                  first: '',
+                  last: ''
+            }
+      }
+})
+
+// Update:
+// Set first to "Javier" and last to "Castano"
+
+setState((prev) => ({
+      ...prev,                      // Copy outer state
+      user: {
+      ...prev.user,                 // Copy user object
+      profile: {
+      ...prev.user.profile,         // Copy profile object
+      first: 'Javier',              // Update first
+      last: 'Castano'               // Update last
+      }
+      }
+}))
+
+*/
+
+// 6. Replace a nested object entirely
+
+/*
+const [state, setState] = React.useState({
+      user: {
+            profile: {
+                  name: 'Javier',
+                  age: 39
+            }
+      }
+})
+
+// Update:
+// Replace profile with { name: 'Alex', age: 20 }
+
+setState((prev) => ({
+      ...prev,
+      user: {
+      ...prev.user,
+      profile: {
+      ...prev.user.profile,
+      name: 'Alex',
+      age: 20
+      }
+      }
+}))
+
+// WRONG:
+// - This is not replacing the profile.
+// - This is updating the existing profile.
+
+// CORRECTED SOLUTION:
+// - This is the true “replace nested object” pattern.
+
+setState(prev => ({
+  ...prev,                       // Copy outer state
+  user: {
+    ...prev.user,                // Copy user object
+    profile: {                   // Replace profile entirely
+      name: 'Alex',
+      age: 20
+    }
+  }
+}))
+
+
+*/
+
+// 7. Increment a nested counter inside stats
+
+/*
+const [state, setState] = React.useState({
+      stats: {
+            activity: {
+                  clicks: 0,
+            }
+      }
+})
+
+// Update:
+// Increase activity.clicks by 1
+
+setState((prev) => ({
+      ...prev,                                  // Copy outer state
+      stats: {
+      ...prev.stats,                            // Copy stats object
+      activity: {
+      ...prev.stats.activity,                   // Copy activity object
+      clicks: prev.stats.activity.clicks + 1
+      }
+      }
+      }))
+
+// Why this is correct
+// Your state looks like:
+
+state
+ └── stats
+      └── activity
+           └── clicks (number)
+
+// So you must:
+
+- spread prev
+- spread prev.stats
+- spread prev.stats.activity
+- update the primitive value directly
+*/

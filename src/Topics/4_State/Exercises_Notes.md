@@ -349,7 +349,7 @@ This is just the trigger.
 
 `setSettings(() => ({}) )`
 `setSettings((prev) => ({...prev, })`
-`setSettings((prev) => ({ ...prev, isOnline: !prev.false })`
+`setSettings((prev) => ({ ...prev, isOnline: !prev.isOnline })`
 
 - !IMPORTANT — When returning an object from an arrow function, you must wrap the object in parentheses.
 
@@ -425,8 +425,6 @@ In plain English:
 ```jsx
 // Full Example:
 
-// The "container":
-
 const [setting, setSettings] = React.useState({
   isOnline: false
 })
@@ -437,4 +435,152 @@ onClick={() => {
 }}
 >
 </Button>
+```
+
+#### How to display `ON` or `OFF` inside `<ValueDisplay>`.
+
+`<ValueDisplay>{settings.isOnline ? 'ON' : 'OFF'}<ValueDisplay>`
+
+This line uses a ternary operator, which is just a compact "if/else".
+
+Think of it like saying:
+
+- If `settings.isOnline` is true, show `ON`.
+- Otherwise, show `OFF`.
+
+#### Fixing up mistakes for the future.
+
+- State variable and property are different things, so name them clearly.
+- In the line: `const [setting, ...]`, `setting` is the state variable, it represents the entire object.
+- But in the line: `React.useState({isOnline: false})`, `isOnline` is a property inside that object, with the value `false`.
+- Naming both the state variable and the property `isOnline` is extremely confusing and leads to errors like:
+  - `pre.false`
+  - `isOnline.true`
+  - `isOnline.isOnline` (gross)
+  - forgetting which one is the object and which one is the boolean.
+
+Example of the confusing version:
+
+```jsx
+const [isOnline, setIsOnline] = React.useState({
+  isOnline: false
+})
+```
+
+- Here:
+  - `isOnline` = the object
+  - `isOnline.isOnline` = the boolean
+
+This is a naming trap.
+
+- The correct, clean, React‑friendly way is:
+
+```jsx
+const [setting, setSettings] = React.useState({
+  isOnline: false
+})
+```
+
+- Now:
+  - `settings` = the object
+  - `settings.isOnline` = the boolean
+
+Clear. Predictable. No mental gymnastics.
+
+# Exercise 20 - Update Nested Object
+
+============================================================
+
+Up until now, you've only updated flat state:
+
+- a number
+- a boolean
+- a simple object
+
+This exercise introduces nested state. Now you're updating something else.
+
+```code
+state
+ └── user
+      ├── name
+      └── age
+```
+
+---
+
+## 1. Step 1
+
+Getting the most updated value with `setState(prev)`.
+
+```jsx
+setState((prev) => ({
+  ...prev,
+  user: {
+    ...prev.user,
+    age: prev.user.age + 1
+  }
+}))
+```
+
+---
+
+## 2. Step 2
+
+Copy the entire outer object with `...prev`.
+`...prev` is basically giving us:
+
+```js
+{
+      user: { name: 'Javier', age:39 }
+}
+```
+
+---
+
+## 3. Step 3
+
+Replacing the user object `user: {...}`.
+React needs a new reference to detect changes.
+This line is like saying: "Hey React, I'm giving you a new user object".
+
+---
+
+## 4. Step 4
+
+Copy the inner object `...prev.user` (meaning the old user).
+We haven't change anything so far, we just copied it.
+
+```js
+{
+  name: "Javier",
+  age: 39
+}
+```
+
+---
+
+## 5. Step 5
+
+Lastly, update one field via `age: prev.user.age + 1`.
+Meaning: "Take the old age, add 1 and overwrite the age field."
+
+This gives you:
+
+```js
+{
+  name: "Javier",
+  age: 40
+}
+```
+
+---
+
+```jsx
+// setState((prev) => ({                  // ----------> the most up-to-date state object
+//   ...prev,                             // ----------> Copy the OUTER state object
+//  user: {                               // ----------> Create a NEW user object
+//    ...prev.user,                       // ----------> Copy the INNER user object
+//    age: prev.user.age + 1              // ----------> Update the age field
+//  }
+// }))
 ```
