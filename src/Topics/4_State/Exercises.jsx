@@ -26,7 +26,11 @@ export default function Exercises() {
       {/* <Exercise17 /> */}
       {/* <Exercise18 /> */}
       {/* <Exercise19 /> */}
-      <Exercise20 />
+      {/* <Exercise20 /> */}
+      {/* <Exercise21 /> */}
+      {/* <Exercise22 /> */}
+      {/* <Exercise23 /> */}
+      {/* <Exercise30 /> */}
     </div>
   )
 }
@@ -236,14 +240,6 @@ function Exercise12() {
 
 // Exercise 13 — Two Counters Updated Together
 
-// Notes:
-
-// You don’t need updater functions here because:
-
-// ----- counter1’s update does not depend on counter2
-// ----- counter2’s update does not depend on counter1
-// ----- neither update depends on the previous value inside the same event
-
 function Exercise13() {
   const [counter1, setCounter1] = React.useState(0)
   const [counter2, setCounter2] = React.useState(0)
@@ -262,6 +258,14 @@ function Exercise13() {
       <ValueDisplay>Counter 1: {counter1} </ValueDisplay>
       <ValueDisplay>Counter 2: {counter2} </ValueDisplay>
     </ExerciseCard>
+
+    // Notes:
+
+    // You don’t need updater functions here because:
+
+    // ----- counter1’s update does not depend on counter2
+    // ----- counter2’s update does not depend on counter1
+    // ----- neither update depends on the previous value inside the same event
   )
 }
 
@@ -285,17 +289,6 @@ function Exercise14() {
 }
 
 // Exercise 15 — Toggle with Updater
-
-// function Exercise15() {
-//   const [on, setOn] = React.useState(false)
-
-//   return (
-//     <ExerciseCard title='Exercise 15 — Toggle with Updater'>
-//       <Button onClick={() => setOn((prev) => !prev)}>Toggle</Button>
-//       <ValueDisplay>{on ? 'ON' : 'OFF'}</ValueDisplay>
-//     </ExerciseCard>
-//   )
-// }
 
 function Exercise15() {
   const [on, setOn] = React.useState(false)
@@ -334,6 +327,7 @@ function Exercise16() {
     </ExerciseCard>
   )
 }
+
 // Exercise 17 — Remove Item from Array with slice()
 
 function Exercise17() {
@@ -407,96 +401,415 @@ function Exercise18() {
       </Button>
       <ValueDisplay>{JSON.stringify(items)}</ValueDisplay>
     </ExerciseCard>
+
+    // Add this to your notes:
+    //
+    // Updating an item in an array of objects always follows this rule:
+    //
+    // - map over the array →
+    // - find the matching object →
+    // - return a new updated copy →
+    // - return all other objects unchanged
+    //
+    // That’s exactly what your line does.
   )
 }
 
-/*
-Add this to your notes:
-
-Updating an item in an array of objects always follows this rule:
-
-- map over the array →
-- find the matching object →
-- return a new updated copy →
-- return all other objects unchanged
-
-That’s exactly what your line does.
-*/
-
 // Exercise 19 — Toggle a Boolean Inside an Object
 
-// function Exercise19() {
-//   const [settings, setSettings] = React.useState({
-//     isOnline: false
-//   })
+function Exercise19() {
+  const [settings, setSettings] = React.useState({
+    isOnline: false
+  })
 
-//   return (
-//     <ExerciseCard>
-//       <Button
-//         onClick={() => {
-//           setSettings((prev) => ({
-//             ...prev,
-//             isOnline: !prev.isOnline
-//           }))
-//         }}
-//       >
-//         Toggle
-//       </Button>
+  return (
+    <ExerciseCard>
+      <Button
+        onClick={() => {
+          setSettings((prev) => ({
+            ...prev,
+            isOnline: !prev.isOnline
+          }))
+        }}
+      >
+        Toggle
+      </Button>
 
-//       <ValueDisplay>{settings.isOnline ? 'ON' : 'OFF'}</ValueDisplay>
-//     </ExerciseCard>
-//   )
-// }
+      <ValueDisplay>{settings.isOnline ? 'ON' : 'OFF'}</ValueDisplay>
+    </ExerciseCard>
+  )
+}
 
 // Exercise 20 — Update Nested Object
 
-// function Exercise20() {
-//   const [state, setState] = React.useState({
-//     user: {
-//       name: 'Javier',
-//       age: 39
-//     }
-//   })
+function Exercise20() {
+  const [state, setState] = React.useState({
+    user: {
+      name: 'Javier',
+      age: 39
+    }
+  })
 
-//   return (
-//     <ExerciseCard>
-//       <Button
-//         onClick={() => {
-//           setState((prev) => ({
-//             ...prev,
-//             user: {
-//               ...prev.user,
-//               age: prev.user.age + 1
-//             }
-//           }))
-//         }}
-//       >
-//         Increment Age
-//       </Button>
-//       <ValueDisplay>{state.user.age}</ValueDisplay>
-//     </ExerciseCard>
-//   )
-// }
+  return (
+    <ExerciseCard>
+      <Button
+        onClick={() => {
+          setState((prev) => ({
+            ...prev,
+            user: {
+              ...prev.user,
+              age: prev.user.age + 1
+            }
+          }))
+        }}
+      >
+        Increment Age
+      </Button>
+      <ValueDisplay>{state.user.age}</ValueDisplay>
+    </ExerciseCard>
+  )
+}
 
 // Exercise 21 — Full Name Derived from First + Last
+
+function Exercise21() {
+  const [name, setName] = React.useState('')
+  const [surname, setSurname] = React.useState('')
+
+  return (
+    <ExerciseCard>
+      <Input placeholder='Name' onChange={(e) => setName(e.target.value)} />
+      <div className='mb-4'></div>
+      <Input
+        placeholder='Surname'
+        onChange={(e) => setSurname(e.target.value)}
+      />
+      <ValueDisplay>
+        {name} {surname}
+      </ValueDisplay>
+    </ExerciseCard>
+  )
+}
+
 // Exercise 22 — Disable Button Based on Input Length
+
+function Exercise22() {
+  const [input, setInput] = React.useState('')
+
+  return (
+    <ExerciseCard>
+      <Input
+        placeholder='Type anything...'
+        type='text'
+        onChange={(e) => setInput(e.target.value)}
+      />
+      <div className='mb-4'></div>
+      <Button disabled={input.length < 5}>Submit</Button>
+      <ValueDisplay>{input}</ValueDisplay>
+    </ExerciseCard>
+  )
+}
+
 // Exercise 23 — Filtered List Derived from Items + Query
+
+function Exercise23() {
+  const items = ['apple', 'banana', 'orange', 'grape', 'kiwi']
+  const [query, setQuery] = React.useState('')
+  const filtered = items.filter((item) =>
+    item.toLowerCase().includes(query.toLowerCase())
+  )
+
+  return (
+    <ExerciseCard>
+      <Input
+        placeholder='Search...'
+        onChange={(e) => setQuery(e.target.value)}
+      />
+
+      <ValueDisplay>{filtered.join(', ')}</ValueDisplay>
+    </ExerciseCard>
+  )
+}
+
 // Exercise 24 — Two Related States (Split or Combine?)
+
+function Exercise24() {
+  const [first, setFirst] = React.useState('')
+  const [last, setLast] = React.useState('')
+
+  const full = `${first} ${last}`.trim()
+
+  return (
+    <ExerciseCard>
+      <Input
+        placeholder='First name'
+        onChange={(e) => setFirst(e.target.value)}
+      />
+
+      <div className='mb-4'></div>
+
+      <Input
+        placeholder='Last name'
+        onChange={(e) => setLast(e.target.value)}
+      />
+
+      <ValueDisplay>{full}</ValueDisplay>
+    </ExerciseCard>
+  )
+}
+
 // Exercise 25 — Form Validation Derived from Fields
+
+function Exercise25() {
+  const [email, setEmail] = React.useState('')
+  const [password, setPassword] = React.useState('')
+
+  const isValid = email.includes('@') && password.length >= 6
+
+  return (
+    <ExerciseCard>
+      <Input
+        placeholder='Email'
+        type='email'
+        onChange={(e) => setEmail(e.target.value)}
+      />
+
+      <div className='mb-4'></div>
+
+      <Input
+        placeholder='Password (min 6 chars)'
+        type='password'
+        onChange={(e) => setPassword(e.target.value)}
+      />
+
+      <Button disabled={!isValid}>Submit</Button>
+
+      <ValueDisplay>{isValid ? 'Valid form' : 'Invalid form'}</ValueDisplay>
+    </ExerciseCard>
+  )
+}
+
 // Exercise 26 — Todo List (Add, Remove, Toggle)
+
+function Exercise26() {
+  const [input, setInput] = React.useState('')
+  const [todos, setTodos] = React.useState([])
+
+  function handleAdd() {
+    if (!input.trim()) return
+
+    setTodos((prev) => [
+      ...prev,
+      {
+        id: crypto.randomUUID(),
+        text: input,
+        done: false
+      }
+    ])
+
+    setInput('')
+  }
+
+  function handleToggle(id) {
+    setTodos((prev) =>
+      prev.map((todo) =>
+        todo.id === id ? { ...todo, done: !todo.done } : todo
+      )
+    )
+  }
+
+  function handleRemove(id) {
+    setTodos((prev) => prev.filter((todo) => todo.id !== id))
+  }
+
+  return (
+    <ExerciseCard>
+      <Input
+        placeholder='Add todo...'
+        value={input}
+        onChange={(e) => setInput(e.target.value)}
+      />
+
+      <Button onClick={handleAdd}>Add</Button>
+
+      <ValueDisplay>
+        {todos.map((todo) => (
+          <div key={todo.id} className='flex items-center gap-2'>
+            <input
+              type='checkbox'
+              checked={todo.done}
+              onChange={() => handleToggle(todo.id)}
+            />
+
+            <span className={todo.done ? 'line-through' : ''}>{todo.text}</span>
+
+            <Button onClick={() => handleRemove(todo.id)}>Delete</Button>
+          </div>
+        ))}
+      </ValueDisplay>
+    </ExerciseCard>
+  )
+}
+
 // Exercise 27 — Form with Validation
+
+function Exercise27() {
+  const [email, setEmail] = React.useState('')
+  const [password, setPassword] = React.useState('')
+  const [confirm, setConfirm] = React.useState('')
+
+  const isValid =
+    email.includes('@') && password.length >= 6 && confirm === password
+
+  return (
+    <ExerciseCard>
+      <Input
+        placeholder='Email'
+        type='email'
+        onChange={(e) => setEmail(e.target.value)}
+      />
+
+      <div className='mb-4'></div>
+
+      <Input
+        placeholder='Password (min 6 chars)'
+        type='password'
+        onChange={(e) => setPassword(e.target.value)}
+      />
+
+      <div className='mb-4'></div>
+
+      <Input
+        placeholder='Confirm password'
+        type='password'
+        onChange={(e) => setConfirm(e.target.value)}
+      />
+
+      <Button disabled={!isValid}>Submit</Button>
+
+      <ValueDisplay>
+        {isValid ? 'Form is valid' : 'Form is invalid'}
+      </ValueDisplay>
+    </ExerciseCard>
+  )
+}
+
 // Exercise 28 — Shopping Cart Quantity Manager
+
+function Exercise28() {
+  const [cart, setCart] = React.useState([
+    { id: 1, name: 'Apple', qty: 1 },
+    { id: 2, name: 'Banana', qty: 2 },
+    { id: 3, name: 'Orange', qty: 1 }
+  ])
+
+  function increase(id) {
+    setCart((prev) =>
+      prev.map((item) =>
+        item.id === id ? { ...item, qty: item.qty + 1 } : item
+      )
+    )
+  }
+
+  function decrease(id) {
+    setCart((prev) =>
+      prev.map((item) =>
+        item.id === id ? { ...item, qty: Math.max(1, item.qty - 1) } : item
+      )
+    )
+  }
+
+  function removeItem(id) {
+    setCart((prev) => prev.filter((item) => item.id !== id))
+  }
+
+  return (
+    <ExerciseCard>
+      <ValueDisplay>
+        {cart.map((item) => (
+          <div key={item.id} className='flex items-center gap-3 mb-2'>
+            <span>{item.name}</span>
+
+            <Button onClick={() => decrease(item.id)}>-</Button>
+            <span>{item.qty}</span>
+            <Button onClick={() => increase(item.id)}>+</Button>
+
+            <Button onClick={() => removeItem(item.id)}>Remove</Button>
+          </div>
+        ))}
+      </ValueDisplay>
+    </ExerciseCard>
+  )
+}
+
 // Exercise 29 — Light/Dark Theme Toggle
+
+function Exercise29() {
+  const [dark, setDark] = React.useState(false)
+
+  const themeStyles = {
+    backgroundColor: dark ? '#111' : '#fff',
+    color: dark ? '#fff' : '#111',
+    padding: '20px',
+    borderRadius: '8px'
+  }
+
+  return (
+    <ExerciseCard>
+      <Button onClick={() => setDark((prev) => !prev)}>Toggle Theme</Button>
+
+      <ValueDisplay>
+        <div style={themeStyles}>{dark ? 'Dark Mode' : 'Light Mode'}</div>
+      </ValueDisplay>
+    </ExerciseCard>
+  )
+}
+
 // Exercise 30 — Click History with Derived Stats
+
+function Exercise30() {
+  const [clicks, setClicks] = React.useState([])
+
+  function handleClick() {
+    setClicks((prev) => [...prev, Date.now()])
+  }
+
+  const total = clicks.length
+
+  const firstClick = clicks[0] ? new Date(clicks[0]).toLocaleTimeString() : '—'
+
+  const lastClick = clicks[clicks.length - 1]
+    ? new Date(clicks[clicks.length - 1]).toLocaleTimeString()
+    : '—'
+
+  const averageGap =
+    clicks.length > 1
+      ? Math.round(
+          (clicks[clicks.length - 1] - clicks[0]) / (clicks.length - 1)
+        )
+      : 0
+
+  return (
+    <ExerciseCard>
+      <Button onClick={handleClick}>Add Click</Button>
+
+      <ValueDisplay>
+        <div>Total clicks: {total}</div>
+        <div>First click: {firstClick}</div>
+        <div>Last click: {lastClick}</div>
+        <div>Avg gap (ms): {averageGap}</div>
+
+        <div className='mt-4'>History: {clicks.join(', ')}</div>
+      </ValueDisplay>
+    </ExerciseCard>
+  )
+}
 
 // ===============================================
 // GRINDING SECTION
 // ===============================================
 
-// SAMPLE: Exercise 20
-
-// Updating Nested Objects:
-// Repeat the core pattern until it becomes muscle memory
+// 1. Repeat the core pattern until it becomes muscle memory
 
 /*
 setState((prev) => ({               // prev = the most up‑to‑date state object
@@ -508,107 +821,7 @@ setState((prev) => ({               // prev = the most up‑to‑date state obje
       }))
 */
 
-/*
-setState((prev) => ({
-      ...prev,
-      user: {
-      ...prev.user,
-      age: prev.user.age + 1
-      }   
-      }))
-*/
-
-/*
-setState((prev) => ({
-      ...prev,
-      user: {
-      ...prev,
-      age: prev.user.age + 1
-      }
-      }))
-*/
-
-/*
-setState((prev) => ({
-      ...prev,
-      user: {
-      ...prev,
-      age: prev.user.age + 1
-      }
-      }))
-*/
-
-/*
-setState((prev) => ({
-      ...prev,
-      user: {
-      ...prev,
-      age: prev.user.age + 1
-      }
-      }))
-*/
-
-/*
-setState((prev) => ({
-      ...prev,
-      user: {
-      ...prev,
-      age: prev.user.age + 1
-      }
-      }))
-*/
-
-/*
-setState((prev) => {
-      ...prev,
-      user: {
-      ...prev,
-      age: prev.user.age + 1
-      }
-      })
-*/
-
-/*
-setState((prev) => ({
-      ...prev,
-      user: {
-      ...prev,
-      age: prev.user.age + 1
-      }
-      }))
-*/
-
-/*
-setState((prev) => ({
-      ...prev,
-      user: {
-      ...prev,
-      age: prev.user.age + 1
-      }
-      }))
-*/
-
-/*
-setState((prev) => ({
-      ...prev,
-      user: {
-      ...prev,
-      age: prev.user.age + 1
-      }
-      }))
-*/
-
-/*
-setState((prev) => ({
-      ...prev,
-      user: {
-      ...prev,
-      age: prev.user.age + 1
-      }
-      }))
-*/
-
-// 1. Update a nested profile field
+// 2. Update a nested profile field
 
 /*
 const [state, setState] = React.useState({
@@ -620,18 +833,18 @@ const [state, setState] = React.useState({
 })
 
 setState((prev) => ({
-      ...prev,                            // Copy OUTER state
+      ...prev,
       user: {
-      ...prev.user,                       // Copy user object
+      ...prev.user,
       profile: {
-      ...prev.user.profile,               // Copy profile object
+      ...prev.user.profile,
       age: prev.user.profile.age + 1
       }
       }
       }))
 */
 
-// 2. Change the user's name
+// 3. Change the user's name
 
 /*
 const [state, setState] = React.useState({
@@ -648,19 +861,19 @@ setState((prev) => ({
       ...prev.user,
       profile: {
       ...prev.user.profile,
-      name: prev.user.profile.name = 'Alex' // WRONG
-      name: 'Alex'
+      name: 'Liam'
       }
       }
-}))
+      }))
 
-Why is wrong:
+Notes:
+- Why I got it wrong in the first place?
 - Because we want to update the name field
 - React cannot detect mutation.
 - !IMPORTANT = React re-renders ONLY when the reference changes
 */
 
-// 3. Toggle a nested boolean inside settings
+// 4. Toggle a nested boolean inside settings
 
 /*
 const [state, setState] = React.useState({
@@ -671,19 +884,20 @@ const [state, setState] = React.useState({
       }
 })
 
-setState(prev => ({
-  ...prev,                                            // Copy outer state
-  settings: {
-    ...prev.settings,                                 // Copy settings object
-    notifications: {
-      ...prev.settings.notifications,                 // Copy notifications object
-      email: !prev.settings.notifications.email       // Toggle
-    }
-  }
-}))
+setState((prev) => ({
+      ...prev,
+      settings: {
+      ...prev.settings,
+      notifications: {
+      ...prev.settings.notifications,
+      email: !prev.settings.notifications.email
+      }
+      }
+      }))
+
 */
 
-// 4. Add a new filed inside a nested object
+// 5. Add a new filed inside a nested object
 
 /*
 const [state, setState] = React.useState({
@@ -697,19 +911,18 @@ const [state, setState] = React.useState({
 // Add country: 'Australia' inside profile
 
 setState((prev) => ({
-      ...prev,
-      user: {
-      ...prev.user,
-      profile: {
-      profile: prev.user.profile + country: 'Australia'     // WRONG
-      ...prev.user.profile,                                 // Copy profile object
-      country: 'Australia'                                  // Add new field
+      ...prev,                                  // Copy     -> outer state object
+      user: {                                   // Replace  -> user with a new object
+      ...prev.user,                             // Copy     -> previous user object
+      profile: {                                // Replace  -> profile with a new object
+      ...prev.user.profile,                     // Copy     -> previous profile object
+      country: 'Australia'                      // Add      -> new field
       }
       }
-      }))
+}))
 */
 
-// 5. Update two nested fields at once
+// 6. Update two nested fields at once
 
 /*
 const [state, setState] = React.useState({
@@ -725,20 +938,19 @@ const [state, setState] = React.useState({
 // Set first to "Javier" and last to "Castano"
 
 setState((prev) => ({
-      ...prev,                      // Copy outer state
+      ...prev,
       user: {
-      ...prev.user,                 // Copy user object
+      ...prev.user,
       profile: {
-      ...prev.user.profile,         // Copy profile object
-      first: 'Javier',              // Update first
-      last: 'Castano'               // Update last
+      ...prev.user.profile,
+      first: 'Javier',
+      last: 'Castano'
       }
       }
-}))
-
+      }))
 */
 
-// 6. Replace a nested object entirely
+// 7. Replace a nested object entirely
 
 /*
 const [state, setState] = React.useState({
@@ -757,36 +969,29 @@ setState((prev) => ({
       ...prev,
       user: {
       ...prev.user,
-      profile: {
-      ...prev.user.profile,
+      profile: {                    -> At this point we stop copying
+      ...prev.user.profile,         -> This line is not neccesary because we are not updating.
       name: 'Alex',
       age: 20
       }
       }
-}))
+      }))
 
-// WRONG:
-// - This is not replacing the profile.
-// - This is updating the existing profile.
-
-// CORRECTED SOLUTION:
-// - This is the true “replace nested object” pattern.
-
-setState(prev => ({
-  ...prev,                       // Copy outer state
-  user: {
-    ...prev.user,                // Copy user object
-    profile: {                   // Replace profile entirely
-      name: 'Alex',
-      age: 20
-    }
-  }
+setState((prev) => ({
+      ...prev,
+      user: {
+      ...prev.user,
+      profile: {                    -> We already have a reference to the whole object, therefore
+      name: 'Alex',                 -> We only replace
+      age: 20                       -> We only replace
+      }
+      }
 }))
 
 
 */
 
-// 7. Increment a nested counter inside stats
+// 8. Increment a nested counter inside stats
 
 /*
 const [state, setState] = React.useState({
@@ -801,28 +1006,112 @@ const [state, setState] = React.useState({
 // Increase activity.clicks by 1
 
 setState((prev) => ({
-      ...prev,                                  // Copy outer state
+      ...prev,
       stats: {
-      ...prev.stats,                            // Copy stats object
+      ...prev.stats,
       activity: {
-      ...prev.stats.activity,                   // Copy activity object
+      ...prev.stats.activity,
       clicks: prev.stats.activity.clicks + 1
       }
       }
-      }))
-
-// Why this is correct
-// Your state looks like:
-
-state
- └── stats
-      └── activity
-           └── clicks (number)
-
-// So you must:
-
-- spread prev
-- spread prev.stats
-- spread prev.stats.activity
-- update the primitive value directly
+}))
 */
+
+// ===============================================
+// EXERCISES INDEX:
+// ===============================================
+
+// Exercise 1 — Basic Counter
+// Exercise 2 — Double Increment
+// Exercise 3 — Two Independent Counters
+// Exercise 4 — Controlled Input
+// Exercise 5 — Show Typed Text
+// Exercise 6 - Boolean Toggle
+// Exercise 7 - Show/Hide Text
+// Exercise 8 - Reset Button
+// Exercise 9 - Disable Button When Count > 5
+// Exercise 10 - Two Inputs, One Output
+// Exercise 11 - Triple Increment
+// Exercise 12 — Increment and Decrement in One Click
+// Exercise 13 — Two Counters Updated Together
+// Exercise 14 — Click History Counter
+// Exercise 15 — Toggle with Updater
+// Exercise 16 — Add Item (string) to Array
+// Exercise 17 — Remove Item from Array with slice()
+// Exercise 18 — Update an Item in Array
+// Exercise 19 — Toggle a Boolean Inside an Object
+// Exercise 20 — Update Nested Object
+// Exercise 21 — Full Name Derived from First + Last
+// Exercise 22 — Disable Button Based on Input Length
+
+// Exercise 23 — Filtered List Derived from Items + Query
+
+// - Drills - Filtering & Search Logic
+// - Exercise 23.1 - Filter list by query
+// - Exercise 23.2 - Case‑insensitive search
+// - Exercise 23.3 - Filter by multiple fields
+// - Exercise 23.4 - Filter by boolean + text
+
+// Exercise 24 — Two Related States (Split or Combine?)
+
+// - Drills -  Split vs Combine State
+// - Exercise 24.1 - Split two independent fields
+// - Exercise 24.2 - Combine related fields into one object
+// - Exercise 24.3 - Derive full name from first + last
+// - Exercise 24.4 - Identify what should NOT be in state
+
+// Exercise 25 — Form Validation Derived from Fields
+
+// - Drills - Derived Validation
+// - Exercise 25.1 - Email + password validation
+// - Exercise 25.2 - Password confirmation
+// - Exercise 25.3 - Disable button based on validity
+// - Exercise 25.4 - Show derived error messages
+
+// Exercise 26 — Todo List (Add, Remove, Toggle)
+
+// - Drills - Array CRUD (Core React Skill)
+// - Exercise 26.1 - Add item to array
+// - Exercise 26.2 - Remove item by id
+// - Exercise 26.3 - Update item by id
+// - Exercise 26.4 - Toggle boolean inside array item
+// - Exercise 26.5 - Replace item entirely
+
+// Exercise 27 — Form with Validation
+
+// - Drills - Quantity & Counters (Shopping Cart Logic)
+// - Exercise 27.1 - Increase quantity by id
+// - Exercise 27.2 - Decrease quantity with min=1
+// - Exercise 27.3 - Remove item when qty hits 0
+// - Exercise 27.4 - Compute total quantity
+
+// Exercise 28 — Shopping Cart Quantity Manager
+
+// Exercise 29 — Light/Dark Theme Toggle
+
+// - Drills - Toggles & UI State
+// - Exercise 29.1 - Simple toggle
+// - Exercise 29.2 - Toggle inside object
+// - Exercise 29.3 - Multiple toggles in one component
+// - Exercise 29.4 - Theme toggle with derived styles
+
+// Exercise 30 — Click History with Derived Stats
+
+// - Drills - Derived Stats & Analytics
+// - Exercise 30.1 Total count
+// - Exercise 30.2 First + last timestamp
+// - Exercise 30.3 Average gap between events
+// - Exercise 30.4 Min/max values
+
+// ===============================================
+// GRINDING EXERCISES INDEX:
+// ===============================================
+
+// 1. Repeat the core pattern until it becomes muscle memory
+// 2. Update a nested profile field
+// 3. Change the user's name
+// 4. Toggle a nested boolean inside settings
+// 5. Add a new filed inside a nested object
+// 6. Update two nested fields at once
+// 7. Replace a nested object entirely
+// 8. Increment a nested counter inside stats
