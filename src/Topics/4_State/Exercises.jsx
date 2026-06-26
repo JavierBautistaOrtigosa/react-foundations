@@ -20,7 +20,6 @@ export default function Exercises() {
       {/* <Exercise11 /> */}
       {/* <Exercise12 /> */}
       {/* <Exercise13 /> */}
-      {/* <Exercise14 /> */}
       {/* <Exercise15 /> */}
       {/* <Exercise16 /> */}
       {/* <Exercise17 /> */}
@@ -160,15 +159,16 @@ function Exercise08() {
 // Exercise 9 - Disable Button When Count > 5
 
 function Exercise09() {
-  const [number, setNumber] = React.useState(0)
+  const [count, setCount] = React.useState(0)
 
   return (
     <ExerciseCard title='Exercise 9 — Disable Button When Count > 5'>
-      <Button onClick={() => setNumber(number + 1)} disabled={number > 5}>
+      {/* Use HTML button element to properly see the results. Otherwise overrides... */}
+      <button onClick={() => setCount((c) => c + 1)} disabled={count >= 5}>
         Add 1
-      </Button>
-      <ValueDisplay>{number}</ValueDisplay>
-      <Button onClick={() => setNumber(0)}>Reset</Button>
+      </button>
+      <ValueDisplay>{count}</ValueDisplay>
+      <Button onClick={() => setCount(0)}>Reset</Button>
     </ExerciseCard>
   )
 }
@@ -238,7 +238,7 @@ function Exercise12() {
   )
 }
 
-// Exercise 13 — Two Counters Updated Together
+// Exercise 13 — Two Counters Updated Together // START HERE ON MONDAY!
 
 function Exercise13() {
   const [counter1, setCounter1] = React.useState(0)

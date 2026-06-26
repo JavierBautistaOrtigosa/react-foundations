@@ -472,7 +472,3 @@ Real components are just combinations of:
 Master these patterns and you can build anything.
 
 ============================================================
-
-```
-
-```
