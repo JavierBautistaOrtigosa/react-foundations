@@ -60,10 +60,15 @@ const Counter = () => {
 > This component stores a string in React state. `useState('Javier')` creates a state variable called `name`, and the `<h1>` displays that string. Whenever `setName` is called with a new value, React re-renders and the `<h1>` will show the updated name. This drill teaches the simplest pattern for string state: declare it → read it in JSX.
 
 ```jsx
-const Name = () => {
+const Ex04 = () => {
   const [name, setName] = useState('Javier')
 
-  return <h1>{name}</h1>
+  return (
+    <>
+      <button onClick={() => setName('Dani')}>{name}</button>
+      <h1>{name}</h1>
+    </>
+  )
 }
 ```
 
@@ -133,7 +138,7 @@ const Toggle = () => {
 
 8. Resetting State
 
-> This component stores a **string** in state and shows it inside an `<input>`. Because the input’s `value` comes from `text`, it is a controlled input. When the user types, `setText(e.target.value)` updates the state, and React re-renders with the new text. The `reset` function sets the state back to an empty string, which instantly clears the input. This drill teaches the core pattern for resetting state and controlling form fields.
+> This component stores a **string** in state and shows it inside an `<input>`. Because the input’s `value` comes from `text`, it is a controlled input. When the user types, `onChange={(e) => setText(e.target.value)}` updates the state, and React re-renders with the new text. The `reset` function sets the state back to an empty string, which instantly clears the input. This drill teaches the core pattern for resetting state and controlling form fields.
 
 ```jsx
 const Form = () => {
