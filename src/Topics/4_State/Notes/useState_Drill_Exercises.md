@@ -62,10 +62,13 @@ const Counter = () => {
 ```jsx
 const Ex04 = () => {
   const [name, setName] = useState('Javier')
+  const updateName = () => {
+    setName((prev) => 'Daniel')
+  }
 
   return (
     <>
-      <button onClick={() => setName('Dani')}>{name}</button>
+      <button onClick={updateName}>Update</button>
       <h1>{name}</h1>
     </>
   )
@@ -77,17 +80,25 @@ const Ex04 = () => {
 > This exercise stores an object in React state. `useState({ name: 'Javier', age: 30 })` creates a `user` object, and the component renders both fields. The `updateAge` function uses the updater form `setUser(prev => ({ ...prev, age: prev.age + 1 }))`, which copies the previous object and updates only the `age` field. React then re-renders and shows the new age. This drill teaches the correct pattern for **immutable object updates** using the spread operator.
 
 ```jsx
-const Profile = () => {
-  const [user, setUser] = useState({ name: 'Javier', age: 30 })
-
+const Ex05 = () => {
+  const [user, setUser] = useState({
+    name: 'Javier',
+    age: 39
+  })
   const updateAge = () => {
-    setUser((prev) => ({ ...prev, age: prev.age + 1 }))
+    setUser((prev) => ({
+      ...prev,
+      age: prev.age + 1
+    }))
   }
 
   return (
-    <p>
-      {user.name} – {user.age}
-    </p>
+    <>
+      <button onClick={updateAge}></button>
+      <p>
+        {user.name} - {user.age}
+      </p>
+    </>
   )
 }
 ```
@@ -158,156 +169,3 @@ const Form = () => {
 ```
 
 ---
-
-## filter(), includes(), toLowerCase(), join(), map()
-
-1. Filter items that include a letter
-
-```jsx
-const Ex1 = () => {
-  const items = ['Apple', 'Banana', 'Kiwi', 'Pear']
-  const result = items.filter((item) => item.includes('a'))
-
-  return <p>{result.join(', '))}</p>
-}
-```
-
-2. Filter items that include a substring
-
-```jsx
-const Ex2 = () => {
-  const items = ['Apple', 'Banana', 'Kiwi', 'Pear']
-  const result = items.filter((item) => item.includes('an'))
-
-  return <p>{result.join(', ')}</p>
-}
-```
-
-3. Case‑insensitive includes()
-
-```jsx
-const Ex3 = () => {
-  const items = ['Apple', 'banana', 'kiwi', 'Pear']
-  const query = 'apple'
-
-  const result = () =>
-    items.filter((item) => item.toLowerCase().includes(query.toLowerCase()))
-
-  return <p>{result.join(', ')}</p>
-}
-```
-
-4. Filter numbers greater than 10
-
-```jsx
-const Ex4 = () => {
-  const nums = [5, 12, 8, 20, 3]
-  const result = nums.filter((n) => n > 10)
-
-  return <p>{result.join(', ')}</p>
-}
-```
-
-5. Filter objects by text field
-
-```jsx
-const Ex5 = () => {
-  const items = [
-    { name: 'apple' },
-    { name: 'banana' },
-    { name: 'grape' },
-    { name: 'kiwi' },
-    { name: 'orange' }
-  ]
-
-  const result = items.filter((item) => item.name.includes('ap'))
-
-  return (
-    <ul>
-      {result.map((item, idx) => (
-        <li key={idx}>{item.name}</li>
-      ))}
-    </ul>
-  )
-}
-```
-
-6. Filter objects by multiple fields
-
-```jsx
-const Ex6 = () => {
-  const items = [
-    { name: 'apple', color: 'red' },
-    { name: 'banana', color: 'yellow' },
-    { name: 'grape', color: 'purple' }
-  ]
-
-  const query = 'red'
-
-  const result = items.filter(
-    (item) => item.name.includes(query) || item.color.includes(query)
-  )
-
-  return (
-    <ul>
-      {result.map((item, idx) => (
-        <li key={idx}>
-          {item.name} — {item.color}
-        </li>
-      ))}
-    </ul>
-  )
-}
-```
-
-7. map() — uppercase all items
-
-```jsx
-const Ex7 = () => {
-  const items = ['apple', 'banana', 'kiwi']
-  const result = items.map((item) => item.toUpperCase())
-
-  return <p>{result.join(', ')}</p>
-}
-```
-
-8. map() — extract field from objects
-
-```jsx
-const Ex8 = () => {
-  const items = [
-    { name: 'apple', price: 2 },
-    { name: 'banana', price: 1 }
-  ]
-
-  const result = items.map((item) => item.name)
-
-  return <p>{result.join(', ')}</p>
-}
-```
-
-9.  join() — turn array into string
-
-```jsx
-const Ex9 = () => {
-  const items = ['a', 'b', 'c']
-  const result = items.join(', ')
-
-  return <p>{result}</p>
-}
-```
-
-10. Combine filter + map + join
-
-```jsx
-const Ex10 = () => {
-  const items = ['apple', 'banana', 'kiwi', 'pear']
-
-  const result = items
-    .filter((item) => item.includes('a'))
-    .map((item) => item.toUpperCase())
-    .join(' | ')
-
-  return <p>{result}</p>
-}
-```

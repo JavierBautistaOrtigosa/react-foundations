@@ -306,122 +306,407 @@
 
 ## some()
 
+`some()` checks is at least on item in an array matches a condition.
+
+- When do we use it?
+  - Validation logic.
+  - UI toggles ("show badge if any item is popular").
+  - Checking if any item meets a requirement.
+  - Quick boolean checks in lists.
+
+- Why is it important?
+  - Perfect for "does anything match" logic?
+  - Used in forms, favourites, filters, and stats.
+  - Cleaner than writing manual loops.
+
+- Anatomy:
+
+      ```js
+      array.some((item) => {
+        return condition
+      })
+      ```
+
+- Core patterns:
+  - Any track above popularity 80:
+
+    ```js
+    tracks.some((t) => t.popularity > 80)
+    ```
+
+    - Any favourite matches this id:
+
+    ```js
+    favourites.some((f) => f.id === track.id)
+    ```
+
+    - Any negative number:
+
+    ```js
+    nums.some((n) => n < 0)
+    ```
+
 ## every()
+
+`every()` checks if all items in an array match a condition.
+
+- When do we use it?
+  - Form validation ("all fields filled?").
+  - Multi-select logic.
+  - Checking consistency across items.
+  - Ensuring all items meet a rule.
+
+- Why is it important?
+  - Perfect for "are all valid" logic.
+  - Used in forms, filters, and stats.
+  - Help create predictable UI behaviour.
+
+- Anatomy:
+
+```js
+array.every((item) => {
+  return condition
+})
+```
+
+- Core patterns:
+  - All favorites from the same artist
+
+    ```js
+    favorites.every(f => f.artist === favorites[0].artist)
+    All numbers positive
+    ```
+
+  - All numbers positive:
+
+    ```js
+    nums.every(n => n > 0)
+    All tracks explicit
+    ```
+
+  - All tracks explicit:
+
+    ```js
+    tracks.every((t) => t.explicit)
+    ```
 
 ## reduce()
 
-## join()
+`reduce()` combines all items in an array into one single value.
+
+- When do we use it?
+  - Totals (duration, price, popularity).
+  - Counts.
+  - Analytics.
+  - Derived values (averages, sums).
+
+- Why is it important?
+  - Essential for dashboards, stats, summaries.
+  - Lets you compute values from lists cleanly.
+  - Used heavily in data‑driven React apps.
+
+- Anatomy:
+
+      ```js
+      array.reduce((acc, item) => {
+        return acc + something
+      }, initialValue)
+      ```
+
+- Core patterns:
+  - Sum numbers:
+
+    ```js
+    nums.reduce((acc, n) => acc + n, 0)
+    Total duration of tracks
+    ```
+
+  - Total duration of tracks:
+
+    ```js
+    tracks.reduce((acc, t) => acc + t.duration_ms, 0)
+    Average popularity
+    ```
+
+  - Average popularity:
+
+    ```js
+    tracks.reduce((acc, t) => acc + t.popularity, 0) / tracks.length
+    ```
 
 ## trim()
 
-## Important Methods
+`trim()` removes whitespace from the start and end of a string.
 
-1. Array Methods Used Constantly in React
-   These are the React essentials. If you master these, you can build 80% of UI logic.
+- When do we use it?
+  - Cleaning user input.
+  - Search bars.
+  - Form validation.
+  - Preventing accidental empty submissions.
 
-🔥 Core React Array Methods
-map() — render lists, transform data
+- Why is it important?
+  - Prevents bugs caused by extra spaces.
+  - Makes search and validation more reliable.
+  - Essential for controlled inputs.
 
-filter() — search, remove items, conditional UI
+- Anatomy:
 
-find() — get a single item (e.g., find user by id)
+      ```js
+      string.trim()
+      Core patterns
+      ```
 
-findIndex() — locate item position for updates
+  - Clean search input:
 
-some() — check if any item matches
+    ```js
+    setQuery(e.target.value.trim())
+    Clean form fields
+    ```
 
-every() — check if all items match
+  - Clean form fields:
 
-reduce() — totals, counts, aggregations
+    ```js
+    const name = input.trim()
+    Prevent empty-space submissions
+    ```
 
-sort() — sorting lists (products, users, etc.)
+  - Prevent empty-space submissions:
 
-slice() — pagination, immutability
+    ```js
+    if (query.trim() === '') return
+    ```
 
-concat() — immutable array updates
+## Method Examples:
 
-flat() — flatten nested arrays
+1. Filter items that include a letter
 
-flatMap() — map + flatten in one step
+```jsx
+const Ex1 = () => {
+  const items = ['Apple', 'Banana', 'Kiwi', 'Pear']
+  const result = items.filter((item) => item.includes('a'))
 
-These are the methods that make React feel easy once they become muscle memory.
+  return <p>{result.join(', '))}</p>
+}
+```
 
-⭐ 2. String Methods Used Constantly in React
+2. Filter items that include a substring
+
+```jsx
+const Ex2 = () => {
+  const items = ['Apple', 'Banana', 'Kiwi', 'Pear']
+  const result = items.filter((item) => item.includes('an'))
+
+  return <p>{result.join(', ')}</p>
+}
+```
+
+3. Case‑insensitive includes()
+
+```jsx
+const Ex3 = () => {
+  const items = ['Apple', 'banana', 'kiwi', 'Pear']
+  const query = 'apple'
+
+  const result = () =>
+    items.filter((item) => item.toLowerCase().includes(query.toLowerCase()))
+
+  return <p>{result.join(', ')}</p>
+}
+```
+
+4. Filter numbers greater than 10
+
+```jsx
+const Ex4 = () => {
+  const nums = [5, 12, 8, 20, 3]
+  const result = nums.filter((n) => n > 10)
+
+  return <p>{result.join(', ')}</p>
+}
+```
+
+5. Filter objects by text field
+
+```jsx
+const Ex5 = () => {
+  const items = [
+    { name: 'apple' },
+    { name: 'banana' },
+    { name: 'grape' },
+    { name: 'kiwi' },
+    { name: 'orange' }
+  ]
+
+  const result = items.filter((item) => item.name.includes('ap'))
+
+  return (
+    <ul>
+      {result.map((item, idx) => (
+        <li key={idx}>{item.name}</li>
+      ))}
+    </ul>
+  )
+}
+```
+
+6. Filter objects by multiple fields
+
+```jsx
+const Ex6 = () => {
+  const items = [
+    { name: 'apple', color: 'red' },
+    { name: 'banana', color: 'yellow' },
+    { name: 'grape', color: 'purple' }
+  ]
+
+  const query = 'red'
+
+  const result = items.filter(
+    (item) => item.name.includes(query) || item.color.includes(query)
+  )
+
+  return (
+    <ul>
+      {result.map((item, idx) => (
+        <li key={idx}>
+          {item.name} — {item.color}
+        </li>
+      ))}
+    </ul>
+  )
+}
+```
+
+7. map() — uppercase all items
+
+```jsx
+const Ex7 = () => {
+  const items = ['apple', 'banana', 'kiwi']
+  const result = items.map((item) => item.toUpperCase())
+
+  return <p>{result.join(', ')}</p>
+}
+```
+
+8. map() — extract field from objects
+
+```jsx
+const Ex8 = () => {
+  const items = [
+    { name: 'apple', price: 2 },
+    { name: 'banana', price: 1 }
+  ]
+
+  const result = items.map((item) => item.name)
+
+  return <p>{result.join(', ')}</p>
+}
+```
+
+9.  join() — turn array into string
+
+```jsx
+const Ex9 = () => {
+  const items = ['a', 'b', 'c']
+  const result = items.join(', ')
+
+  return <p>{result}</p>
+}
+```
+
+10. Combine filter + map + join
+
+```jsx
+const Ex10 = () => {
+  const items = ['apple', 'banana', 'kiwi', 'pear']
+
+  const result = items
+    .filter((item) => item.includes('a'))
+    .map((item) => item.toUpperCase())
+    .join(' | ')
+
+  return <p>{result}</p>
+}
+```
+
+## Method Index:
+
+### Array Methods Used Constantly in React:
+
+These are the React essentials. If you master these, you can build 80% of UI logic.
+
+- Core React Array Methods:
+  - map() — render lists, transform data
+  - filter() — search, remove items, conditional UI
+  - find() — get a single item (e.g., find user by id)
+  - findIndex() — locate item position for updates
+  - some() — check if any item matches
+  - every() — check if all items match
+  - reduce() — totals, counts, aggregations
+  - sort() — sorting lists (products, users, etc.)
+  - slice() — pagination, immutability
+  - concat() — immutable array updates
+  - flat() — flatten nested arrays
+  - flatMap() — map + flatten in one step
+
+### String Methods Used Constantly in React
+
 These power search bars, filters, validation, formatting, and UI text.
 
-🔥 Core React String Methods
-toLowerCase() — case‑insensitive search
-
-toUpperCase() — formatting, normalization
-
-trim() — clean user input
-
-includes() — search logic
-
-startsWith() — prefix matching
-
-endsWith() — suffix matching
-
-split() — convert string → array
-
-replace() — formatting, sanitizing
-
-replaceAll() — clean multiple occurrences
+- Core React String Methods
+  - toLowerCase() — case‑insensitive search
+  - toUpperCase() — formatting, normalization
+  - trim() — clean user input
+  - includes() — search logic
+  - startsWith() — prefix matching
+  - endsWith() — suffix matching
+  - split() — convert string → array
+  - replace() — formatting, sanitizing
+  - replaceAll() — clean multiple occurrences
 
 React uses strings everywhere — inputs, labels, search, validation — so these matter.
 
-⭐ 3. Object Methods Used Constantly in React
+### Object Methods Used Constantly in React
+
 React state is often objects, so these matter for immutable updates.
 
-🔥 Core React Object Methods
-Object.keys() — get field names
-
-Object.values() — get field values
-
-Object.entries() — iterate key/value pairs
-
-Object.assign() — immutable updates
-
-structuredClone() — deep copy objects
+- Core React Object Methods
+  - Object.keys() — get field names
+  - Object.values() — get field values
+  - Object.entries() — iterate key/value pairs
+  - Object.assign() — immutable updates
+  - structuredClone() — deep copy objects
 
 These are essential for updating nested state without mutation.
 
-⭐ 4. Number & Math Methods Used Often in React
+### Number & Math Methods Used Often in React
+
 Used for counters, pagination, UI calculations, animations, charts.
 
-🔥 Core React Number/Math Methods
-parseInt() — convert input → number
+- Core React Number/Math Methods
+  - parseInt() — convert input → number
+  - parseFloat() — convert input → decimal
+  - Math.round() — rounding
+  - Math.floor() — pagination
+  - Math.ceil() — pagination
+  - Math.max() — find largest
+  - Math.min() — find smallest
 
-parseFloat() — convert input → decimal
+### JSON Methods Used Constantly in React
 
-Math.round() — rounding
-
-Math.floor() — pagination
-
-Math.ceil() — pagination
-
-Math.max() — find largest
-
-Math.min() — find smallest
-
-⭐ 5. JSON Methods Used Constantly in React
 Especially when working with APIs.
 
-🔥 Core JSON Methods
-JSON.parse() — convert JSON → JS
+- Core JSON Methods
+  - JSON.parse() — convert JSON → JS
+  - JSON.stringify() — convert JS → JSON
+  - React apps talk to APIs all the time — these are essential.
 
-JSON.stringify() — convert JS → JSON
+### Utility Methods Used Everywhere
 
-React apps talk to APIs all the time — these are essential.
-
-⭐ 6. Utility Methods Used Everywhere
 These aren’t array/string methods but are used constantly.
 
-🔥 Core Utility Methods
-setTimeout() — delays, debounce
-
-setInterval() — timers
-
-clearTimeout() — cancel timers
-
-clearInterval() — cancel intervals
+- Core Utility Methods
+  - setTimeout() — delays, debounce
+  - setInterval() — timers
+  - clearTimeout() — cancel timers
+  - clearInterval() — cancel intervals

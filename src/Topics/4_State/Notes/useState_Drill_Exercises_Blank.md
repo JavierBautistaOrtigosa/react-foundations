@@ -6,8 +6,11 @@
 
 ```jsx
 const Ex01 = () => {
-  const [count, setCount] = useState(0)
-  return <p>{count}</p>
+  const [counter, setCounter] = useState(0)
+  const increment = () => {
+    setCounter(counter + 1)
+  }
+  return <p>{counter}</p>
 }
 ```
 
@@ -19,19 +22,31 @@ const Ex02 = () => {
   const handleClick = () => {
     setCount(count + 1)
   }
-  return <button onClick={handleClick}>{count}</button>
+
+  return (
+    <>
+      <button onClick={handleClick}>Increment</button>
+      <p>{counter}</p>
+    </>
+  )
 }
 ```
 
-3. Updating State with Previous Value
+1. Updating State with Previous Value
 
 ```jsx
 const Ex03 = () => {
   const [count, setCount] = useState(0)
-  const increment = () => {
-      setCount(prev => ...prev + 1)
-  }
-  return <button onClick={increment}>{count}</button>
+const increment = () => {
+      setCount(prev => ...prev, prev +1)
+}
+
+  return (
+    <>
+      <button onClick={increment}></button>
+      <p>{count}</p>
+    </>
+  )
 }
 ```
 
@@ -40,23 +55,26 @@ const Ex03 = () => {
 ```jsx
 const Ex04 = () => {
   const [name, setName] = useState('Javier')
+  const updateName = () => {
+    setName((prev) => 'Daniel')
+  }
 
   return (
     <>
-      <button onClick={() => setName('Dani')}>{name}</button>
+      <button onClick={updateName}>Update</button>
       <h1>{name}</h1>
     </>
   )
 }
 ```
 
-5. useState with Objects // Confusion with parentheses and curly braces...
+5. useState with Objects
 
 ```jsx
 const Ex05 = () => {
   const [user, setUser] = useState({
     name: 'Javier',
-    age: 30
+    age: 39
   })
   const updateAge = () => {
     setUser((prev) => ({
@@ -66,9 +84,12 @@ const Ex05 = () => {
   }
 
   return (
-    <button onClick={updateAge}>
-      {user.name} - {user.age}
-    </button>
+    <>
+      <button onClick={updateAge}></button>
+      <p>
+        {user.name} - {user.age}
+      </p>
+    </>
   )
 }
 ```
@@ -77,51 +98,72 @@ const Ex05 = () => {
 
 ```jsx
 const Ex06 = () => {
-  const[(items, setItems)] = useState(['a', 'b'])
-  const addItem = () => {setItems((prev) => [...prev, 'c'])}
-
+  const [items, setItems] = useState(['a', 'b'])
+  const addItem = () => {
+    setItems((prev) => [...prev, 'c'])
+  }
   return (
+    <>
+      <button onClick={addItem}>Add</button>
       <ul>
-      {items.map((i, idx) => (
-            <li key={idx}>{i}</li>
-      ))}
+        {items.map((i, index) => (
+          <li key={index}>{i}</li>
+        ))}
       </ul>
+    </>
   )
-
 }
 ```
 
 7. Toggle Boolean State
 
 ```jsx
-const Ex07 = () => {
-  const [isOn, setIsOn] = useState(false)
-  const toggle = () => {
-    setIsOn((prev) => !prev)
-  }
-  return <button onClick={toggle}>{isOn ? 'Open' : 'Closed'}</button>
-}
+
 ```
 
 8. Resetting State
 
 ```jsx
-const Ex08 = () => {
-  const [text, setText] = useState('')
-  const reset = () => {
-    setText('')
-  }
-  return (
-    <>
-      <input value={text} onChange={(e) => setText(e.target.value)} />
-      <button onClick={reset}>{Reset}</button>
-    </>
-  )
-}
+
 ```
 
 ## Notes:
 
+### Spread operator
+
 - The spread operator (...) is only valid for objects and arrays, because those are the only data types that can be expanded into multiple elements or key/value pairs.
 
+### Ex08
+
 - In the context of Exercise 08, setText((prev) => '') is unnecessary, it works, but it’s the wrong pattern. For strings, you do not need the updater function. Just pass the new value directly:`setText('')`. The updater form is only needed when the new value depends on the previous value.
+
+### Ex05
+
+- Confusion again with the following line `age: prev.age + 1`.
+- Need practice with the whole updateAge function:
+
+```jsx
+const updateAge = () => {
+  setUser((prev) => ({
+    ...prev,
+    age: prev.age + 1
+  }))
+}
+```
+
+### Ex06
+
+- Need practice with map()
+
+```jsx
+return (
+  <>
+    <button onClick={addItem}>Add</button>
+    <ul>
+      {items.map((i, index) => (
+        <li key={index}>{i}</li>
+      ))}
+    </ul>
+  </>
+)
+```
