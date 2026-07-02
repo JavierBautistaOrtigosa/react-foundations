@@ -7,9 +7,6 @@
 ```jsx
 const Ex01 = () => {
   const [counter, setCounter] = useState(0)
-  const increment = () => {
-    setCounter(counter + 1)
-  }
   return <p>{counter}</p>
 }
 ```
@@ -20,30 +17,30 @@ const Ex01 = () => {
 const Ex02 = () => {
   const [count, setCount] = useState(0)
   const handleClick = () => {
-    setCount(count + 1)
+    setCounter(count + 1)
   }
 
   return (
     <>
       <button onClick={handleClick}>Increment</button>
-      <p>{counter}</p>
+      <p>{count}</p>
     </>
   )
 }
 ```
 
-1. Updating State with Previous Value
+3. Updating State with Previous Value
 
 ```jsx
 const Ex03 = () => {
   const [count, setCount] = useState(0)
-const increment = () => {
-      setCount(prev => ...prev, prev +1)
-}
+  const increment = () => {
+    setCount((prev) => prev + 1)
+  }
 
   return (
     <>
-      <button onClick={increment}></button>
+      <button onClick={increment}>Increment</button>
       <p>{count}</p>
     </>
   )
@@ -94,7 +91,7 @@ const Ex05 = () => {
 }
 ```
 
-6. useState with Arrays // Need drills to get familiar with map()
+6. useState with Arrays // Need drills to get familiar with map() // I am here!
 
 ```jsx
 const Ex06 = () => {
@@ -140,6 +137,12 @@ const Ex06 = () => {
 ### Ex05
 
 - Confusion again with the following line `age: prev.age + 1`.
+- Remember that `...prev` must be insid an object literal `{ }`. So this:
+  `setUser((prev)=> ...prev, age: prev.age + 1)`. Needs to be like this:
+  `setUser(prev => ({...prev, age: prev.age + 1 }))`.
+- You cannot render an object directly like this:
+  `<p>{user}</p>`, you must render its fields: <p>{user.name} - {user.age}</p>
+
 - Need practice with the whole updateAge function:
 
 ```jsx

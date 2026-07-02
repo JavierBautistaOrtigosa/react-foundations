@@ -44,14 +44,18 @@ const Counter = () => {
 > `setCount(prev => prev + 1)` and `setCount((prev) => prev + 1)` are identical. Parentheses are optional when there is only one parameter. Both forms use the updater function pattern, which guarantees React gives you the latest state value.
 
 ```jsx
-const Counter = () => {
+const Ex03 = () => {
   const [count, setCount] = useState(0)
-
   const increment = () => {
     setCount((prev) => prev + 1)
   }
 
-  return <button onClick={increment}>{count}</button>
+  return (
+    <>
+      <button onClick={increment}>Increment</button>
+      <p>{count}</p>
+    </>
+  )
 }
 ```
 
