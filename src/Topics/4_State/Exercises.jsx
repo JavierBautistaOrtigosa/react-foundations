@@ -3,6 +3,7 @@ import ExerciseCard from '../../Components/ExerciseCard'
 import Button from '../../Components/Button'
 import Input from '../../Components/Input'
 import ValueDisplay from '../../Components/ValueDisplay'
+import { useState } from 'react'
 
 export default function Exercises() {
   return (
@@ -30,6 +31,7 @@ export default function Exercises() {
       {/* <Exercise22 /> */}
       {/* <Exercise23 /> */}
       {/* <Exercise30 /> */}
+      {/* <Exercise31 /> */}
     </div>
   )
 }
@@ -357,25 +359,6 @@ function Exercise17() {
     </ExerciseCard>
   )
 }
-
-/*
-Add this to your notes:
-
-Why .slice(0, -1) works
-
-- slice() returns a new array (immutable)
-- 0 = start at the beginning
-- -1 = stop one before the last item
-
-Result: last item removed
-
-Example:
-
-Code:
-
-prev = [1, 2, 3, 4]
-prev.slice(0, -1) → [1, 2, 3]
-*/
 
 // Exercise 18 — Update an Item in Array
 
@@ -767,40 +750,40 @@ function Exercise29() {
 
 // Exercise 30 — Click History with Derived Stats
 
-function Exercise30() {
-  const [clicks, setClicks] = React.useState([])
+// function Exercise30() {
+//   const [clicks, setClicks] = React.useState([])
 
-  function handleClick() {
-    setClicks((prev) => [...prev, Date.now()])
-  }
+//   function handleClick() {
+//     setClicks((prev) => [...prev, Date.now()])
+//   }
 
-  const total = clicks.length
+//   const total = clicks.length
 
-  const firstClick = clicks[0] ? new Date(clicks[0]).toLocaleTimeString() : '—'
+//   const firstClick = clicks[0] ? new Date(clicks[0]).toLocaleTimeString() : '—'
 
-  const lastClick = clicks[clicks.length - 1]
-    ? new Date(clicks[clicks.length - 1]).toLocaleTimeString()
-    : '—'
+//   const lastClick = clicks[clicks.length - 1]
+//     ? new Date(clicks[clicks.length - 1]).toLocaleTimeString()
+//     : '—'
 
-  const averageGap =
-    clicks.length > 1
-      ? Math.round(
-          (clicks[clicks.length - 1] - clicks[0]) / (clicks.length - 1)
-        )
-      : 0
+//   const averageGap =
+//     clicks.length > 1
+//       ? Math.round(
+//           (clicks[clicks.length - 1] - clicks[0]) / (clicks.length - 1)
+//         )
+//       : 0
 
-  return (
-    <ExerciseCard>
-      <Button onClick={handleClick}>Add Click</Button>
+//   return (
+//     <ExerciseCard>
+//       <Button onClick={handleClick}>Add Click</Button>
 
-      <ValueDisplay>
-        <div>Total clicks: {total}</div>
-        <div>First click: {firstClick}</div>
-        <div>Last click: {lastClick}</div>
-        <div>Avg gap (ms): {averageGap}</div>
+//       <ValueDisplay>
+//         <div>Total clicks: {total}</div>
+//         <div>First click: {firstClick}</div>
+//         <div>Last click: {lastClick}</div>
+//         <div>Avg gap (ms): {averageGap}</div>
 
-        <div className='mt-4'>History: {clicks.join(', ')}</div>
-      </ValueDisplay>
-    </ExerciseCard>
-  )
-}
+//         <div className='mt-4'>History: {clicks.join(', ')}</div>
+//       </ValueDisplay>
+//     </ExerciseCard>
+//   )
+// }
