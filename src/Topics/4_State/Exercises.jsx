@@ -750,40 +750,40 @@ function Exercise29() {
 
 // Exercise 30 — Click History with Derived Stats
 
-// function Exercise30() {
-//   const [clicks, setClicks] = React.useState([])
+function Exercise30() {
+  const [clicks, setClicks] = React.useState([])
 
-//   function handleClick() {
-//     setClicks((prev) => [...prev, Date.now()])
-//   }
+  function handleClick() {
+    setClicks((prev) => [...prev, Date.now()])
+  }
 
-//   const total = clicks.length
+  const total = clicks.length
 
-//   const firstClick = clicks[0] ? new Date(clicks[0]).toLocaleTimeString() : '—'
+  const firstClick = clicks[0] ? new Date(clicks[0]).toLocaleTimeString() : '—'
 
-//   const lastClick = clicks[clicks.length - 1]
-//     ? new Date(clicks[clicks.length - 1]).toLocaleTimeString()
-//     : '—'
+  const lastClick = clicks[clicks.length - 1]
+    ? new Date(clicks[clicks.length - 1]).toLocaleTimeString()
+    : '—'
 
-//   const averageGap =
-//     clicks.length > 1
-//       ? Math.round(
-//           (clicks[clicks.length - 1] - clicks[0]) / (clicks.length - 1)
-//         )
-//       : 0
+  const averageGap =
+    clicks.length > 1
+      ? Math.round(
+          (clicks[clicks.length - 1] - clicks[0]) / (clicks.length - 1)
+        )
+      : 0
 
-//   return (
-//     <ExerciseCard>
-//       <Button onClick={handleClick}>Add Click</Button>
+  return (
+    <ExerciseCard>
+      <Button onClick={handleClick}>Add Click</Button>
 
-//       <ValueDisplay>
-//         <div>Total clicks: {total}</div>
-//         <div>First click: {firstClick}</div>
-//         <div>Last click: {lastClick}</div>
-//         <div>Avg gap (ms): {averageGap}</div>
+      <ValueDisplay>
+        <div>Total clicks: {total}</div>
+        <div>First click: {firstClick}</div>
+        <div>Last click: {lastClick}</div>
+        <div>Avg gap (ms): {averageGap}</div>
 
-//         <div className='mt-4'>History: {clicks.join(', ')}</div>
-//       </ValueDisplay>
-//     </ExerciseCard>
-//   )
-// }
+        <div className='mt-4'>History: {clicks.join(', ')}</div>
+      </ValueDisplay>
+    </ExerciseCard>
+  )
+}
