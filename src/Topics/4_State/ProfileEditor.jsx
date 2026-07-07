@@ -2,179 +2,98 @@ import { useState } from 'react'
 import './tw-reset.css'
 
 const ProfileEditor = () => {
-  const initialProfile = {
-    name: 'Javier',
-    age: 39,
+  const initialUser = {
+    name: '',
+    age: '',
+    gender: '',
     isOnline: true,
     address: {
+      country: 'Australia',
       state: 'WA',
-      street: '7 Milfor Pl',
-      code: 6061
+      city: 'Nollamara'
     }
   }
 
-  const [user, setUser] = useState(initialProfile)
+  const [user, setUser] = useState(initialUser)
 
-  //   Handlers
+  //   Reset Handlers:
+
+  //   Name:
 
   const resetName = () => {
-    setUser((prev) => ({ ...prev, name: initialProfile.name }))
+    setUser((prev) => ({ ...prev, name: initialUser.name }))
   }
+
+  // Age:
 
   const resetAge = () => {
-    setUser((prev) => ({ ...prev, age: initialProfile.age }))
+    setUser((prev) => ({ ...prev, age: initialUser.age }))
   }
 
-  const resetOnline = () => {
-    setUser((prev) => ({ ...prev, isOnline: initialProfile.isOnline }))
-  }
+  // Gender:
 
-  const resetAddressState = () => {
-    setUser((prev) => ({
-      ...prev,
-      address: { ...prev.address, state: initialProfile.address.state }
-    }))
-  }
-
-  const resetAddressStreet = () => {
-    setUser((prev) => ({
-      ...prev,
-      address: { ...prev.address, street: initialProfile.address.street }
-    }))
-  }
-
-  const resetAddressCode = () => {
-    setUser((prev) => ({
-      ...prev,
-      address: { ...prev.address, code: initialProfile.address.code }
-    }))
+  const resetGender = () => {
+    setUser((prev) => ({ ...prev, gender: initialUser.gender }))
   }
 
   return (
     <div className='tw-reset'>
-      <h2>Profile Editor - Intermediate</h2>
-      <hr />
-
-      {/* Preview */}
-
-      <h3>Initial Profile State Preview</h3>
-      <ul>
-        <li>Name: {user.name}</li>
-        <li>age: {user.age}</li>
-        <li>Online: {user.isOnline ? 'Online' : 'Offline'}</li>
-        <li>State: {user.address.state}</li>
-        <li>Street: {user.address.street}</li>
-        <li>Code: {user.address.code}</li>
-      </ul>
-
-      {/* Name */}
-
+      {/* Name Field */}
       <label>
-        Name:
+        Name: {user.name}
         <br />
         <input
-          placeholder='Write a new name...'
+          placeholder='Type new name...'
           value={user.name}
-          onChange={(e) =>
+          onChange={(e) => {
             setUser((prev) => ({ ...prev, name: e.target.value }))
-          }
+          }}
         />
+        <br />
+        <button
+        // Code to save the name
+        >
+          Save
+        </button>
         <br />
         <button onClick={resetName}>Reset</button>
       </label>
-      <br />
+      <hr />
 
-      {/* Age */}
-
+      {/* Age Field */}
       <label>
-        Age:
+        Age: {user.age}
         <br />
         <input
+          placeholder='Enter user age'
           value={user.age}
-          onChange={(e) =>
+          onChange={(e) => {
             setUser((prev) => ({ ...prev, age: e.target.value }))
-          }
+          }}
         />
+        <br />
+        <button>Save</button>
+        <br />
         <button onClick={resetAge}>Reset</button>
       </label>
-      <br />
+      <hr />
 
-      {/* Online */}
-
-      <label>
-        Online:
-        <br />
-        <select
-          value={user.isOnline ? 'true' : 'false'}
-          onChange={(e) => {
-            setUser((prev) => ({
-              ...prev,
-              isOnline: e.target.value === 'true'
-            }))
-          }}
-        >
-          <option value='true'>Online</option>
-          <option value='false'>Offline</option>
-        </select>
-        <button onClick={resetOnline}>Reset</button>
-      </label>
-      <br />
-
-      {/* Address - State*/}
+      {/* Gender Field */}
 
       <label>
-        State:
-        <br />
-        <select
-          value={user.address.state}
-          onChange={(e) => {
-            setUser((prev) => ({
-              ...prev,
-              address: { ...prev.address, state: e.target.value }
-            }))
-          }}
-        >
-          <option value='WA'>WA</option>
-          <option value='NSW'>NSW</option>
-          <option value='SA'>SA</option>
-        </select>
-        <button onClick={resetAddressState}>Reset</button>
-      </label>
-      <br />
-
-      {/* Address - Street */}
-
-      <label>
-        Street:
+        Gender: {user.gender}
         <br />
         <input
-          value={user.address.street}
+          placeholder='Male or Female'
+          value={user.gender}
           onChange={(e) => {
-            setUser((prev) => ({
-              ...prev,
-              address: { ...prev.address, street: e.target.value }
-            }))
+            setUser((prev) => ({ ...prev, gender: e.target.value }))
           }}
         />
-        <button onClick={resetAddressStreet}>Reset</button>
-      </label>
-      <br />
-
-      {/* Address - Code */}
-
-      <label>
-        Code:
         <br />
-        <input
-          value={user.address.code}
-          onChange={(e) => {
-            setUser((prev) => ({
-              ...prev,
-              address: { ...prev.address, code: e.target.value }
-            }))
-          }}
-        />
-        <button onClick={resetAddressCode}>Reset</button>
+        <button>Save</button>
+        <br />
+        <button onClick={resetGender}>Reset</button>
       </label>
     </div>
   )
