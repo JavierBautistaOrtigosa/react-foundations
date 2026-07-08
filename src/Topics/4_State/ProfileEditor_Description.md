@@ -58,9 +58,9 @@ Flow 2 — Editing Name
 - onChange fires.
 - The new value is read from the event.
 - A new user object is created:
-- All previous fields copied
-- Only name replaced
-- React re-renders with the updated name.
+  - All previous fields copied
+  - Only name replaced
+  - React re-renders with the updated name.
 
 Flow 3 — Editing Street
 
@@ -68,10 +68,10 @@ Flow 3 — Editing Street
 - onChange fires.
 - The new street value is read.
 - A new user object is created:
-- Outer object copied
-- Inner address object copied
-- Only street replaced
-- React re-renders with updated street.
+  - Outer object copied
+  - Inner address object copied
+  - Only street replaced
+  - React re-renders with updated street.
 
 Flow 4 — Editing ZIP
 
@@ -83,27 +83,27 @@ Flow 5 — Increment Age
 - User clicks “Increment Age.”
 - Handler runs.
 - A new user object is created:
-- All fields copied
-- age increased by 1
-- UI updates with new age.
+  - All fields copied
+  - age increased by 1
+  - UI updates with new age.
 
 Flow 6 — Trim City
 
 - User clicks “Trim City.”
 - Handler runs.
 - A new user object is created:
-- All fields copied
-- city trimmed
-- UI updates with cleaned city.
+  - All fields copied
+  - city trimmed
+  - UI updates with cleaned city.
 
 Flow 7 — Toggle Online Status
 
 - User clicks “Toggle.”
 - Handler runs.
 - A new user object is created:
-- All fields copied
-- isOnline flipped from true → false or false → true
-- UI updates to show “Online” or “Offline.”
+  - All fields copied
+  - isOnline flipped from true → false or false → true
+  - UI updates to show “Online” or “Offline.”
 
 Flow 8 — Reset Profile
 
@@ -113,7 +113,7 @@ Flow 8 — Reset Profile
 - All fields revert to their original values.
 - UI updates to show the original profile.
 
-4. What You’re Practicing
+1. What You’re Practicing
 
 - Object updates:
   - Updating one field inside an object without mutating the rest.
@@ -158,7 +158,7 @@ Add handlers for:
 
 This is the exact flow used in real profile editors.
 
-## “Profile Editor - Easy Version”
+## “Profile Editor - Basic Version”
 
 ### Goal
 

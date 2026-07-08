@@ -1,0 +1,10 @@
+{
+  "name": "Test",
+  "age": "",
+  "country": "",
+  "address": {
+    "state": "",
+    "street": "",
+    "code": ""
+  }
+}

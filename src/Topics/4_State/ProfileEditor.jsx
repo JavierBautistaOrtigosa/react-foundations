@@ -1,99 +1,61 @@
+// Imports
+
 import { useState } from 'react'
 import './tw-reset.css'
 
+// App Component
 const ProfileEditor = () => {
+  // Profile Object
   const initialUser = {
     name: '',
     age: '',
-    gender: '',
-    isOnline: true,
+    country: '',
     address: {
-      country: 'Australia',
-      state: 'WA',
-      city: 'Nollamara'
+      state: '',
+      street: '',
+      code: ''
     }
   }
 
+  // useState Formula
   const [user, setUser] = useState(initialUser)
 
-  //   Reset Handlers:
-
-  //   Name:
-
+  // Handlers
   const resetName = () => {
     setUser((prev) => ({ ...prev, name: initialUser.name }))
   }
 
-  // Age:
-
-  const resetAge = () => {
-    setUser((prev) => ({ ...prev, age: initialUser.age }))
+  // Load Profile
+  const loadProfile = async () => {
+    const res = await fetch('http://localhost:3001/profile')
+    const data = await res.json()
+    setUser(data)
   }
 
-  // Gender:
-
-  const resetGender = () => {
-    setUser((prev) => ({ ...prev, gender: initialUser.gender }))
+  // Save Profile
+  const saveProfile = async () => {
+    await fetch('http://localhost:3001/save-profile', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(user)
+    })
   }
 
   return (
     <div className='tw-reset'>
-      {/* Name Field */}
       <label>
         Name: {user.name}
         <br />
         <input
-          placeholder='Type new name...'
           value={user.name}
+          placeholder='Enter you name...'
           onChange={(e) => {
             setUser((prev) => ({ ...prev, name: e.target.value }))
           }}
         />
         <br />
-        <button
-        // Code to save the name
-        >
-          Save
-        </button>
-        <br />
         <button onClick={resetName}>Reset</button>
-      </label>
-      <hr />
-
-      {/* Age Field */}
-      <label>
-        Age: {user.age}
-        <br />
-        <input
-          placeholder='Enter user age'
-          value={user.age}
-          onChange={(e) => {
-            setUser((prev) => ({ ...prev, age: e.target.value }))
-          }}
-        />
-        <br />
-        <button>Save</button>
-        <br />
-        <button onClick={resetAge}>Reset</button>
-      </label>
-      <hr />
-
-      {/* Gender Field */}
-
-      <label>
-        Gender: {user.gender}
-        <br />
-        <input
-          placeholder='Male or Female'
-          value={user.gender}
-          onChange={(e) => {
-            setUser((prev) => ({ ...prev, gender: e.target.value }))
-          }}
-        />
-        <br />
-        <button>Save</button>
-        <br />
-        <button onClick={resetGender}>Reset</button>
+        <button onClick={saveProfile}>Save</button>
       </label>
     </div>
   )
